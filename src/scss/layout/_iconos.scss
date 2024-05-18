@@ -1,0 +1,20 @@
+/* Iconos en tamaño tablet o mayor */
+@include tablet {
+  .iconos-nosotros {
+    @include grid(3, 2rem); // Separados y dividos en tres columnas cpn grid
+  }
+}
+
+/* Estilos para los íconos */
+.icono {
+  //Las imágenes dentro de .icono
+  img {
+    height: 10rem;
+    text-align: center;
+  }
+
+  // h3 dentro de .icono
+  h3 {
+    text-transform: uppercase;
+  }
+}
