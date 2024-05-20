@@ -22,13 +22,13 @@
   p {
     margin: 0;
   }
+}
 
-  /* Estilos para el precio */
-  .precio {
-    color: $verde;
-    font-weight: bold;
-    font-size: 3rem;
-  }
+/* Estilos para el precio */
+.precio {
+  color: $verde;
+  font-weight: bold;
+  font-size: 3rem;
 }
 
 /* Estilos para los íconos del anuncio */
@@ -36,6 +36,7 @@
   display: flex;
   list-style: none;
   padding: 0;
+  max-width: 40rem;
 
   li {
     flex: 1;
