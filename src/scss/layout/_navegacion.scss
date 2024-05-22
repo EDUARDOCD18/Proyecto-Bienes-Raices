@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 3rem;
+  align-items: center;
 
   /* En tamaño tablet o mayor */
   @include tablet {
@@ -13,6 +14,7 @@
 
 /* Estilos para la navegación */
 .navegacion {
+  display: none;
   /* En tamaño tablet o mayor */
   @include tablet {
     display: flex;
@@ -31,7 +33,7 @@
     &:focus {
       color: $negro;
       background-color: $amarillo;
-      transition: ease .2s all;
+      transition: ease 0.2s all;
     }
 
     /* En tamaño tablet o mayor */
@@ -44,4 +46,19 @@
       }
     }
   }
+}
+
+/* Manú de Hamburguesa */
+.mobile-menu {
+  @include tablet {
+    display: none;
+  }
+
+  img {
+    width: 5rem;
+  }
+}
+
+.mostrar {
+  display: block;
 }
