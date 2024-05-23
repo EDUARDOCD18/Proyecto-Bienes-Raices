@@ -31,9 +31,11 @@
   padding: 1rem 3rem;
   text-align: center;
   margin-top: calc($separacion/2);
+  border: none;
 
   &:hover,
   &:focus {
-    background-color: darken($amarillo, 5);
+    background-color: darken($bgColor, 5);
+    cursor: pointer;
   }
 }
