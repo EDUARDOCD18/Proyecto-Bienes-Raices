@@ -1,13 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
   eventListeners();
+  darkMode();
 });
 
+/* Función para el Dark Mode */
+function darkMode() {
+  const botonDarkMode = document.querySelector(".dark-mode-boton");
+  botonDarkMode.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+  });
+}
+
+/* Función para el menú de hamburguesa */
 function eventListeners() {
   const mobileMenu = document.querySelector(".mobile-menu");
 
   mobileMenu.addEventListener("click", navegacionResponsive);
 }
 
+/* Función para la navegación responsiva */
 function navegacionResponsive() {
   const navegacion = document.querySelector(".navegacion");
 
