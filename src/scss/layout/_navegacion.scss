@@ -14,11 +14,16 @@
 
 /* Estilos para la navegación */
 .navegacion {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibilty .3s ease-in-out, opacity 0.5s linear;
+
   /* En tamaño tablet o mayor */
   @include tablet {
     display: flex;
     align-items: center;
+    opacity: 1;
+    visibility: visible;
   }
 
   /* Estilos para los <a> de la navegación */
@@ -60,5 +65,13 @@
 }
 
 .mostrar {
-  display: block;
+ /*  display: flex;
+  flex-direction: column;
+
+  @include tablet {
+    flex-direction: row;
+  } */
+
+  visibility: visible;
+  opacity: 1;
 }
