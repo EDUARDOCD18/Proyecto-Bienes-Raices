@@ -43,7 +43,8 @@
 .navegacion {
   visibility: hidden;
   opacity: 0;
-  transition: visibilty 0.3s ease-in-out, opacity 0.5s linear;
+  height: 0;
+  transition: visibilty 0.3s ease-in-out, opacity 0.5s linear, height 1s linear; 
 
   /* En tamaño tablet o mayor */
   @include tablet {
@@ -101,4 +102,5 @@
 
   visibility: visible;
   opacity: 1;
+  height: auto;
 }
