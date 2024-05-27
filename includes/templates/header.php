@@ -33,8 +33,7 @@
             </div>
             <!-- .barra -->
 
-            <?php if ($inicio) { ?>
-                <h1>Venta de Casas y Departamentos exclusivos de lujo</h1><?php } ?>
+            <?php echo $inicio ? "<h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>" : ''; ?>
         </div>
         <!-- .contenedor -->
     </header>
