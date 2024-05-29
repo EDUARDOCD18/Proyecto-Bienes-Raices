@@ -1,11 +1,12 @@
 <head>
-  <title>Bienes</title>
+  <title>Bienes Raices</title>
 </head>
 
 <?php
-$inicio = true;
-include './includes/templates/header.php';
+require 'includes/funciones.php';
+incluirTemplate('header', $inicio = true);
 ?>
+
 <main class="contenedor seccion">
   <h1>Más sobre Nosotros</h1>
   <div class="iconos-nosotros">
@@ -241,6 +242,6 @@ include './includes/templates/header.php';
 </div>
 <!-- .contenedor de blog -->
 <?php
-include './includes/templates/footer.php';
+incluirTemplate('footer');
 ?>
 <script src="build/js/bundle.min.js"></script>

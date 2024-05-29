@@ -3,14 +3,15 @@
 </head>
 
 <?php
-include './includes/templates/header.php';
+require 'includes/funciones.php';
+incluirTemplate('header');;
 ?>
 
 <main class="contenedor seccion">
   <h1>Contacto</h1>
   <picture>
-    <source srcset="/build/img/destacada3.webp" type="image/webp" />
-    <source srcset="/build/img/destacada3.jpg" type="image/jpeg" />
+    <source srcset="/bienesraices/build/img/destacada3.webp" type="image/webp" />
+    <source srcset="/bienesraices/build/img/destacada3.jpg" type="image/jpeg" />
     <img src="/build/img/destacada3.jpg" alt="Destacada 3" />
   </picture>
   <h2>Llene el siguente formulario de contacto</h2>
@@ -79,7 +80,7 @@ include './includes/templates/header.php';
 </main>
 
 <?php
-include './includes/templates/footer.php';
+incluirTemplate('footer');
 ?>
 <script src="build/js/bundle.min.js"></script>
 </body>

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <header class="header <?php echo isset($inicio) ? 'inicio' : ''; ?>">
+    <header class="header <?php echo $inicio ? 'inicio' : ''; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="index.php"><img src="build/img/logo.svg" alt="Logo" /></a>
@@ -33,7 +33,7 @@
             </div>
             <!-- .barra -->
 
-            <?php echo isset($inicio) ? "<h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>" : ''; ?>
+            <?php echo $inicio ? "<h1>Venta de Casas y Departamentos Exclusivos de Lujo</h1>" : ''; ?>
         </div>
         <!-- .contenedor -->
     </header>
