@@ -9,6 +9,12 @@
         <!-- .navegacion -->
     </div>
     <!-- .contenedor .contenedor-footer -->
-    <p class="copyright">Todos los derechos reservados. <?php echo date('Y');?></p>
+    <p class="copyright">Todos los derechos reservados. <?php echo date('Y'); ?></p>
 </footer>
 <!-- .footer -->
+
+<script src="/bienesraices/build/js/bundle.min.js"></script>
+
+</body>
+
+</html>
