@@ -1,7 +1,3 @@
-<head>
-  <title>Bienes Raices</title>
-</head>
-
 <?php
 require 'includes/funciones.php';
 incluirTemplate('header', $inicio = true);

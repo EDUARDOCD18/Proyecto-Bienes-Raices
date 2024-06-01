@@ -3,6 +3,10 @@
 require '../../includes/config/database.php';
 $db = conectarDB();
 
+// Arreglo con los mensajes de errores
+$errores = [];
+
+/* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*   echo "<pre>";
     var_dump($_POST);
@@ -16,17 +20,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $estacionamiento = $_POST['estacionamiento'];
     $vendedores_id = $_POST['vendedor'];
 
-    /* Insertar en la Base de Datos */
-    $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+    /* Validaciones para los campos vacíos */
+    if (!$titulo) {
+        $errores[] = "Debe agregar un título";
+    }
+    if (!$precio) {
+        $errores[] = "Debe agregar un precio de venta";
+    }
+    if (strlen($descripcion) < 50) {
+        $errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo";
+    }
+    if (!$habitaciones) {
+        $errores[] = "Debe agregar mínimo una habitación";
+    }
+    if (!$wc) {
+        $errores[] = "Debe agregar mínimo un baño";
+    }
+    if (!$estacionamiento) {
+        $errores[] = "Debe agregar mínimo un puesto de estacionamiento";
+    }
+    if ($vendedores_id === "" || !$vendedores_id) {
+        $errores[] = "Debe elegir al vendedor o vendedora";
+    }
+
+    /*  echo "<pre>";
+    var_dump($errores);
+    echo "</pre>"; */
+
+    // Revisar que el arrglo de errores esté vacío
+    if (empty($errores)) {
+        /* Insertar en la Base de Datos */
+        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
 
 
-    $resultado = mysqli_query($db, $query);
-    /* if ($resultado) {
-        echo ("OK");
-        exit;
-    } else {
-        echo ("Error");
-    } */
+        $resultado = mysqli_query($db, $query);
+        /* if ($resultado) {
+            echo ("OK");
+            exit;
+        } else {
+            echo ("Error");
+        } */
+    }
 }
 
 /* Importar el header */
@@ -37,6 +71,12 @@ incluirTemplate('header');
 <main class="contenedor seccion">
     <h1>Crear</h1>
     <a href="index.php" class="boton boton-amarillo">← Volver</a>
+
+    <?php
+    foreach ($errores as $error) :
+    ?> <div class="alerta error">
+            <?php echo $error; ?>
+        </div> <?php endforeach; ?>
 
     <!-- Formulario para la crenación de una nueva Propiedad -->
     <form action="" class="formulario" method="POST" action="/admin/propiedades/crear.php">
@@ -87,6 +127,7 @@ incluirTemplate('header');
 
             <!-- Selección para el vendedor -->
             <select name="vendedor" id="">
+                <option value="" disabled selected>-- Seleccione vendedor(a) --</option>
                 <option value="1">Javier</option>
                 <option value="2">Caliope</option>
             </select>
