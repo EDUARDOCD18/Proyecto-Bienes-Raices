@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-  <title>Entrada de Blog</title>
-</head>
-
 <?php
 require 'includes/funciones.php';
 incluirTemplate('header');

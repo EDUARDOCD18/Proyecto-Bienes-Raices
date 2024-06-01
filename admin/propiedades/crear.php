@@ -6,6 +6,14 @@ $db = conectarDB();
 // Arreglo con los mensajes de errores
 $errores = [];
 
+$titulo = '';
+$precio = '';
+$descripcion = '';
+$habitaciones = '';
+$wc = '';
+$estacionamiento = '';
+$vendedores_id = '';
+
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     /*   echo "<pre>";
@@ -88,11 +96,11 @@ incluirTemplate('header');
 
             <!-- Título de la Propiedad -->
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" placeholder="Título de la Propiedad">
+            <input type="text" id="titulo" name="titulo" placeholder="Título de la Propiedad" value="<?php echo $titulo ?>">
 
             <!-- Precio de la Propiedad -->
             <label for="precio">Valor:</label>
-            <input type="number" id="precio" name="precio" placeholder="Valor de la Propiedad">
+            <input type="number" id="precio" name="precio" placeholder="Valor de la Propiedad" value="<?php echo $precio ?>">
 
             <!-- Cargar una imagen de la Propiedad -->
             <label for="imagen">Imagen:</label>
@@ -100,7 +108,7 @@ incluirTemplate('header');
 
             <!-- Descripción para la Propiedad -->
             <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" placeholder="Describe la Propiedad"></textarea>
+            <textarea id="descripcion" name="descripcion" placeholder="Describe la Propiedad"><?php echo $descripcion ?></textarea>
         </fieldset>
 
         <!-- Atributos o caraterísticas de la Propiedad -->
@@ -109,15 +117,15 @@ incluirTemplate('header');
 
             <!-- Nº de habitaciones -->
             <label for="habitaciones">Nº de Habitaciones:</label>
-            <input type="number" id="habitaciones" name="habitaciones" placeholder="Ejm: 2" min="1" max="10">
+            <input type="number" id="habitaciones" name="habitaciones" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $habitaciones ?>">
 
             <!-- Nº de baños -->
             <label for="wc">Nº de baños:</label>
-            <input type="number" id="wc" name="wc" placeholder="Ejm: 2" min="1" max="10">
+            <input type="number" id="wc" name="wc" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $wc ?>">
 
             <!-- Nº de puestos de estacionamiento -->
             <label for="estacionamiento">Nº de puestos de estacionamiento:</label>
-            <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ejm: 2" min="1" max="10">
+            <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $estacionamiento ?>">
         </fieldset>
 
 

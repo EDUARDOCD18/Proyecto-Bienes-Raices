@@ -1,7 +1,3 @@
-<head>
-  <title>Anuncios</title>
-</head>
-
 <?php
 require 'includes/funciones.php';
 incluirTemplate('header');
