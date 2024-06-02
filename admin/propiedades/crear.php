@@ -1,11 +1,18 @@
 <?php
+// En caso de error 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 /* Base de Datos */
 require '../../includes/config/database.php';
 $db = conectarDB();
 
-// Arreglo con los mensajes de errores
-$errores = [];
+// Consultar los vendedores en la BDD
+$consulta = "SELECT * FROM vendedores";
+$resultado = mysqli_query($db, $consulta);
 
+// Datos vacíos
 $titulo = '';
 $precio = '';
 $descripcion = '';
@@ -14,12 +21,15 @@ $wc = '';
 $estacionamiento = '';
 $vendedores_id = '';
 
+// Arreglo con los mensajes de errores
+$errores = [];
+
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    /*   echo "<pre>";
+    echo "<pre>";
     var_dump($_POST);
     echo "</pre>";
- */
+
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
     $descripcion = $_POST['descripcion'];
@@ -47,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$estacionamiento) {
         $errores[] = "Debe agregar mínimo un puesto de estacionamiento";
     }
-    if ($vendedores_id === "" || !$vendedores_id) {
+    if (!$vendedores_id) {
         $errores[] = "Debe elegir al vendedor o vendedora";
     }
 
@@ -62,12 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         $resultado = mysqli_query($db, $query);
-        /* if ($resultado) {
+        if ($resultado) {
             echo ("OK");
             exit;
         } else {
             echo ("Error");
-        } */
+        }
     }
 }
 
@@ -134,10 +144,11 @@ incluirTemplate('header');
             <legend>Vendedor</legend>
 
             <!-- Selección para el vendedor -->
-            <select name="vendedor" id="">
-                <option value="" disabled selected>-- Seleccione vendedor(a) --</option>
-                <option value="1">Javier</option>
-                <option value="2">Caliope</option>
+            <select name="vendedor">
+                <option value="">-- Seleccione --</option>
+                <?php while ($vendedor =  mysqli_fetch_assoc($resultado)) : ?>
+                    <option <?php echo $vendedores_id === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"> <?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?> </option>
+                <?php endwhile; ?>
             </select>
         </fieldset>
 
