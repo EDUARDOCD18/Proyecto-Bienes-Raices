@@ -26,9 +26,12 @@ $errores = [];
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    /*  echo "<pre>";
+        /*  echo "<pre>";
     var_dump($_POST);
-    echo "</pre>"; */
+    echo "</pre>";
+    echo "<pre>";
+    var_dump($_FILES);
+    echo "</pre>" */;
 
     $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
     $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -39,12 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']);
     $creado = date('Y/m/d');
 
+    // Asignar una variable a files
+    $imagen = $_FILES['imagen'];
+
     /* Validaciones para los campos vacíos */
     if (!$titulo) {
         $errores[] = "Debe agregar un título";
     }
     if (!$precio) {
         $errores[] = "Debe agregar un precio de venta";
+    }
+    if (!$imagen['name'] || $imagen['error']) {
+        $errores[] = "La imagen es obligatoria";
+    }
+    // Validar el tamaño de la imagen
+    $medida = 1000 * 2;
+    if ($imagen['size'] > $medida) {
+        $errores[] = "La imagene es muy pesada. Max 3MB";
     }
     if (strlen($descripcion) < 50) {
         $errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo";
@@ -61,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$vendedores_id) {
         $errores[] = "Debe elegir al vendedor o vendedora";
     }
+
 
     /*  echo "<pre>";
     var_dump($errores);
@@ -98,7 +113,7 @@ incluirTemplate('header');
         </div> <?php endforeach; ?>
 
     <!-- Formulario para la crenación de una nueva Propiedad -->
-    <form action="" class="formulario" method="POST" action="/admin/propiedades/crear.php">
+    <form action="" class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
         <!-- Información General de la Propiedad -->
         <fieldset>
             <legend>
@@ -115,7 +130,7 @@ incluirTemplate('header');
 
             <!-- Cargar una imagen de la Propiedad -->
             <label for="imagen">Imagen:</label>
-            <input type="file" id="imagen" accept="image/jpeg, image/png">
+            <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
 
             <!-- Descripción para la Propiedad -->
             <label for="descripcion">Descripción:</label>
