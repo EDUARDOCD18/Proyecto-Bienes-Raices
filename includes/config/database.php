@@ -1,6 +1,19 @@
 <?php
+
 function conectarDB(): mysqli
 {
-    $db = mysqli_connect('localhost:3306', 'root', '', 'bienesraices_crud');
+
+    $server = "localhost:3306";
+    $user = "root";
+    $pass = "";
+    $bd = "bienesraices_crud";
+
+    $db = mysqli_connect($server, $user, $pass, $bd); // conexión a la base de datos
+    $db->set_charset("utf8"); // Para que se muestren correctamente los acentos y las ñ
+
+    if (!$db) {
+        echo 'Error en la conexión a la base de datos';
+        exit;
+    }
     return $db;
 }
