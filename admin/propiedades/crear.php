@@ -26,9 +26,9 @@ $errores = [];
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "<pre>";
+    /*  echo "<pre>";
     var_dump($_POST);
-    echo "</pre>";
+    echo "</pre>"; */
 
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $wc = $_POST['wc'];
     $estacionamiento = $_POST['estacionamiento'];
     $vendedores_id = $_POST['vendedor'];
+    $creado = date('Y/m/d');
 
     /* Validaciones para los campos vacíos */
     if (!$titulo) {
@@ -68,13 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
         /* Insertar en la Base de Datos */
-        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedores_id' ) ";
+        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado','$vendedores_id' ) ";
 
 
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
-            echo ("OK");
-            exit;
+            // Redirecionar al usuario
+            header('Location: ../propiedades');
         } else {
             echo ("Error");
         }
