@@ -117,7 +117,7 @@ incluirTemplate('header');
 ?>
 
 <main class="contenedor seccion">
-    <h1>Crear</h1>
+    <h1>Crear una nueva Propiedad</h1>
     <a href="index.php" class="boton boton-amarillo">← Volver</a>
 
     <?php

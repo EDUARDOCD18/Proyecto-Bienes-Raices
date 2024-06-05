@@ -1,6 +1,11 @@
 .seccion {
     margin-top: calc($separacion / 2);
     margin-bottom: calc($separacion / 2);
+
+    .acciones{
+        display: flex;
+        justify-content: space-evenly;
+    }
 }
 .contenido-centrado {
     max-width: 80rem;
