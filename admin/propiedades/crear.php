@@ -47,33 +47,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* Validaciones para los campos vacíos */
     if (!$titulo) {
-        $errores[] = "Debe agregar un título";
+        $errores[] = "Debe agregar un título.";
     }
     if (!$precio) {
-        $errores[] = "Debe agregar un precio de venta";
+        $errores[] = "Debe agregar un precio de venta.";
     }
     if (!$imagen['name'] || $imagen['error']) {
-        $errores[] = "La imagen es obligatoria";
+        $errores[] = "La imagen es obligatoria.";
     }
     // Validar el tamaño de la imagen
-    $medida = 1000 * 2;
+    $medida = 1000 * 1000;
     if ($imagen['size'] > $medida) {
-        $errores[] = "La imagene es muy pesada. Max 3MB";
+        $errores[] = "La imagene es muy pesada.";
     }
     if (strlen($descripcion) < 50) {
-        $errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo";
+        $errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo.";
     }
     if (!$habitaciones) {
-        $errores[] = "Debe agregar mínimo una habitación";
+        $errores[] = "Debe agregar mínimo una habitación.";
     }
     if (!$wc) {
-        $errores[] = "Debe agregar mínimo un baño";
+        $errores[] = "Debe agregar mínimo un baño.";
     }
     if (!$estacionamiento) {
-        $errores[] = "Debe agregar mínimo un puesto de estacionamiento";
+        $errores[] = "Debe agregar mínimo un puesto de estacionamiento.";
     }
     if (!$vendedores_id) {
-        $errores[] = "Debe elegir al vendedor o vendedora";
+        $errores[] = "Debe elegir al vendedor o vendedora.";
     }
 
 
@@ -83,8 +83,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
+        /* Subida de archivos */
+
+        // Crear carpeta
+        $carpetaImagenes = '../../imagenes/';
+        if (!is_dir($carpetaImagenes)) {
+            mkdir($carpetaImagenes);
+        }
+
+        // Generar un nombre único para cada imagen
+        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+
+        // Subir la imagen
+        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+
         /* Insertar en la Base de Datos */
-        $query = " INSERT INTO propiedades (titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado','$vendedores_id' ) ";
+        $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado','$vendedores_id' ) ";
 
 
         $resultado = mysqli_query($db, $query);
