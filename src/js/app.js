@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   eventListeners();
-  darkMode();
+  // darkMode();
 });
 
 /* Función para el Dark Mode */
