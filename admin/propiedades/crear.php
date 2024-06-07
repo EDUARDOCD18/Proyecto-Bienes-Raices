@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
             // Redirecionar al usuario
-            header('Location: ../propiedades');
+            header('Location: ../propiedades?resultado=1');
         } else {
             echo ("Error");
         }
