@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
             // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=1');
+            header('Location: ../vendedores?resultado=1');
         } else {
             echo ("Error");
         }
@@ -76,8 +76,8 @@ incluirTemplate('header');
             <?php echo $error; ?>
         </div> <?php endforeach; ?>
 
-    <!-- Formulario para la crenación de una nueva Propiedad -->
-    <form action="" class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+    <!-- Formulario para la crenación de un Nuevo Vendedor -->
+    <form action="" class="formulario" method="POST" action="/admin/vendedores/crearVendedor.php" enctype="multipart/form-data">
         <!-- Datos del Vendedor o de la Vendedora -->
         <fieldset>
             <legend>

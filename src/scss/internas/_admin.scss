@@ -23,10 +23,18 @@ table.propiedades {
 
   thead {
     background-color: $verde;
-
     th {
       color: $blanco;
       padding: 2rem;
+      &:nth-child(odd) {
+        background-color: darken($verde, 10%);
+      }
+    }
+  }
+
+  tbody {
+    tr:nth-child(odd) {
+      background-color: darken($blanco, 10%);
     }
   }
 

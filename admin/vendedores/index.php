@@ -4,7 +4,7 @@ require '../../includes/config/database.php';
 $db = conectarDB();
 
 // Escribir el query 
-$query = "SELECT * FROM propiedades";
+$query = "SELECT * FROM vendedores";
 
 // Consultar la base de datos
 $resultadoConsulta = mysqli_query($db, $query);
@@ -13,12 +13,13 @@ $resultadoConsulta = mysqli_query($db, $query);
 $resultado = $_GET['resultado'] ?? null;
 
 // Importa el header
+$resultado = $_GET['resultado'] ?? null;
 require '../../includes/funciones.php';
 incluirTemplate('header');
 ?>
 
 <main class="contenedor seccion">
-    <h1>Administrar Propiedades</h1>
+    <h1>Administrar Vendedores</h1>
 
     <?php if (intval($resultado) === 1) : ?>
         <p class="alerta exito">Registro Exitoso</p>
@@ -26,26 +27,24 @@ incluirTemplate('header');
 
     <div class="acciones">
         <a href="../" class="boton boton-amarillo">← Volver Atrás</a>
-        <a href="crear.php" class="boton boton-verde">Nueva Propiedad →</a>
+        <a href="crearVendedor.php" class="boton boton-verde">Nueva Vendedor →</a>
     </div>
 
     <table class="propiedades">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Título</th>
-                <th>Imagen</th>
-                <th>Precio</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Acciones</th>
             </tr>
-        </thead> <!-- Mostrar los resultados de la consulta -->
+        </thead>
         <tbody>
-            <?php while ($propiedad = mysqli_fetch_assoc($resultadoConsulta)) : ?>
+            <?php while ($vendedor = mysqli_fetch_assoc($resultadoConsulta)) : ?>
                 <tr>
-                    <td><?php echo $propiedad['id']; ?></td>
-                    <td><?php echo $propiedad['titulo']; ?></td>
-                    <td><img src="../../imagenes/<?php echo $propiedad['imagen']; ?>" alt="" class="imagen-tabla"></td>
-                    <td><?php echo "$" . $propiedad['precio']; ?></td>
+                    <td><?php echo $vendedor['id']; ?></td>
+                    <td><?php echo $vendedor['nombre']; ?></td>
+                    <td><?php echo $vendedor['apellido']; ?></td>
                     <td>
                         <a href="#" class="boton-rojo-block">Eliminar</a>
                         <a href="#" class="boton-amarillo-block">Actualizar</a>
@@ -57,7 +56,4 @@ incluirTemplate('header');
 </main>
 
 <?php
-
-// cerra la conexión 
-mysqli_close($db);
 incluirTemplate('footer'); ?>
