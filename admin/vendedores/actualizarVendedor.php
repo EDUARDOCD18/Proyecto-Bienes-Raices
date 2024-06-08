@@ -9,15 +9,21 @@ if (!$id) {
     header('Location: ../vendedores?resultado=1'); // Redirecciona al usuario
 }
 
-
 /* -- Base de Datos -- */
+
+// Importar la Base de Datos
 require '../../includes/config/database.php';
 $db = conectarDB();
 
+// Consulta a la tabla de vendedores
+$consulta = "SELECT * FROM vendedores WHERE id = $id";
+$resultado = mysqli_query($db, $consulta);
+$vendedor = mysqli_fetch_assoc($resultado);
+
 /* -- Datos vacíos -- */
-$nombre = '';
-$apellido = '';
-$telefono = '';
+$nombre = $vendedor['nombre'];
+$apellido = $vendedor['apellido'];
+$telefono = $vendedor['telefono'];
 
 /* -- Arreglo con los mensajes de errores -- */
 $errores = [];
@@ -92,18 +98,18 @@ incluirTemplate('header');
 
             <!-- Nombre del Vendedor o Vendedora -->
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre ?>">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre; ?>">
 
             <!-- Apellido del Vendedor o Vendedora -->
             <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido ?>">
+            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido; ?>">
 
             <!-- Teléfono -->
             <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora"><?php echo $telefono ?></input>
+            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora" value="<?php echo $telefono; ?>"></input>
         </fieldset>
 
-        <input type="submit" value="Confirmar Registro" class="boton boton-verde">
+        <input type="submit" value="Actualizar Registro" class="boton boton-verde">
     </form> <!-- .formulario -->
 </main>
 

@@ -86,15 +86,15 @@ incluirTemplate('header');
 
             <!-- Nombre del Vendedor o Vendedora -->
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre ?>">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre; ?>">
 
             <!-- Apellido del Vendedor o Vendedora -->
             <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido ?>">
+            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido; ?>">
 
             <!-- Teléfono -->
             <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora"><?php echo $telefono ?></input>
+            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora" value="<?php echo $telefono; ?>"></input>
         </fieldset>
 
         <input type="submit" value="Confirmar Registro" class="boton boton-verde">

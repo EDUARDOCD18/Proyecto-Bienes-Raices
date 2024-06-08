@@ -10,21 +10,29 @@ if (!$id) {
 }
 
 /* -- Base de Datos -- */
+
+// Importa la Base de Datos
 require '../../includes/config/database.php';
 $db = conectarDB();
 
-// Consultar los vendedores en la BDD
+// Consultar la tabla propiedades
+$consulta = "SELECT * FROM propiedades WHERE id = $id";
+$resultado = mysqli_query($db, $consulta);
+$propiedad = mysqli_fetch_assoc($resultado);
+
+// Consultar la tabla vendedores
 $consulta = "SELECT * FROM vendedores";
 $resultado = mysqli_query($db, $consulta);
 
 // Datos vacíos
-$titulo = '';
-$precio = '';
-$descripcion = '';
-$habitaciones = '';
-$wc = '';
-$estacionamiento = '';
-$vendedores_id = '';
+$titulo = $propiedad['titulo'];
+$precio = $propiedad['precio'];
+$descripcion = $propiedad['descripcion'];
+$habitaciones = $propiedad['habitaciones'];
+$wc = $propiedad['wc'];
+$estacionamiento = $propiedad['estacionamiento'];
+$vendedores_id = $propiedad['vendedores_id'];
+$imagenPropiedad = $propiedad['imagen'];
 
 // Arreglo con los mensajes de errores
 $errores = [];
@@ -80,11 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$vendedores_id) {
         $errores[] = "Debe elegir al vendedor o vendedora.";
     }
-
-
-    /*  echo "<pre>";
-    var_dump($errores);
-    echo "</pre>"; */
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
@@ -150,6 +153,8 @@ incluirTemplate('header');
             <!-- Cargar una imagen de la Propiedad -->
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
+
+            <img src="../../imagenes/<?php echo $imagenPropiedad; ?>" alt="Imagen de la propiedad"  class="imagen-small">
 
             <!-- Descripción para la Propiedad -->
             <label for="descripcion">Descripción:</label>

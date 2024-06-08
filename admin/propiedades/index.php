@@ -1,4 +1,7 @@
 <?php
+
+/* -- Base de Datos -- */
+
 // Importar la Base de Datos
 require '../../includes/config/database.php';
 $db = conectarDB();
@@ -9,10 +12,10 @@ $query = "SELECT * FROM propiedades";
 // Consultar la base de datos
 $resultadoConsulta = mysqli_query($db, $query);
 
-// Muestra mensaje condiconal
+/* -- Muestra mensaje condiconal -- */
 $resultado = $_GET['resultado'] ?? null;
 
-// Importa el header
+/* -- Importa el header -- */
 require '../../includes/funciones.php';
 incluirTemplate('header');
 ?>
@@ -58,6 +61,8 @@ incluirTemplate('header');
 
 <?php
 
-// cerra la conexión 
+/* -- cerra la conexión -- */
 mysqli_close($db);
+
+/* -- Importar el footer -- */
 incluirTemplate('footer'); ?>

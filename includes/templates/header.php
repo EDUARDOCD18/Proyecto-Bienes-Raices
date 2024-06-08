@@ -15,7 +15,7 @@
     <header class="header <?php echo $inicio ? 'inicio' : ''; ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
-                <a href="index.php"><img src="/bienesraices/build/img/logo.svg" alt="Logo" /></a>
+                <a href="/bienesraices/index.php"><img src="/bienesraices/build/img/logo.svg" alt="Logo" /></a>
 
                 <div class="mobile-menu">
                     <img src="/bienesraices/build/img/barras.svg" alt="icono menu responsive" />
