@@ -45,9 +45,9 @@ incluirTemplate('header');
                     <td><?php echo $vendedor['id']; ?></td>
                     <td><?php echo $vendedor['nombre']; ?></td>
                     <td><?php echo $vendedor['apellido']; ?></td>
-                    <td>
+                    <td class="botones-accion">
                         <a href="#" class="boton-rojo-block">Eliminar</a>
-                        <a href="#" class="boton-amarillo-block">Actualizar</a>
+                        <a href="actualizarVendedor.php?id=<?php echo $vendedor['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

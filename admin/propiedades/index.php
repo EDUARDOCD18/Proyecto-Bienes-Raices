@@ -46,9 +46,9 @@ incluirTemplate('header');
                     <td><?php echo $propiedad['titulo']; ?></td>
                     <td><img src="../../imagenes/<?php echo $propiedad['imagen']; ?>" alt="" class="imagen-tabla"></td>
                     <td><?php echo "$" . $propiedad['precio']; ?></td>
-                    <td>
+                    <td class="botones-accion">
                         <a href="#" class="boton-rojo-block">Eliminar</a>
-                        <a href="#" class="boton-amarillo-block">Actualizar</a>
+                        <a href="actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             <?php endwhile; ?>
