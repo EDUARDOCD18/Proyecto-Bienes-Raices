@@ -24,7 +24,9 @@ incluirTemplate('header');
     <h1>Administrar Propiedades</h1>
 
     <?php if (intval($resultado) === 1) : ?>
-        <p class="alerta exito">Registro Exitoso</p>
+        <p class="alerta exito">Propiedad Registrada</p>
+    <?php elseif (intval($resultado) === 2) : ?>
+        <p class="alerta exito">Propiedad Actualizada</p>
     <?php endif ?>
 
     <div class="acciones">

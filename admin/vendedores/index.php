@@ -25,7 +25,9 @@ incluirTemplate('header');
     <h1>Administrar Vendedores</h1>
 
     <?php if (intval($resultado) === 1) : ?>
-        <p class="alerta exito">Registro Exitoso</p>
+        <p class="alerta exito">Vendedor Registrado</p>
+    <?php elseif (intval($resultado) === 2) : ?>
+        <p class="alerta exito">Vendedor Actualizado</p>
     <?php endif ?>
 
     <div class="acciones">
@@ -39,6 +41,7 @@ incluirTemplate('header');
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Teléfono</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -48,6 +51,7 @@ incluirTemplate('header');
                     <td><?php echo $vendedor['id']; ?></td>
                     <td><?php echo $vendedor['nombre']; ?></td>
                     <td><?php echo $vendedor['apellido']; ?></td>
+                    <td><?php echo $vendedor['telefono']; ?></td>
                     <td class="botones-accion">
                         <a href="#" class="boton-rojo-block">Eliminar</a>
                         <a href="actualizarVendedor.php?id=<?php echo $vendedor['id']; ?>" class="boton-amarillo-block">Actualizar</a>

@@ -60,7 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errores)) {
 
         /* Insertar en la Base de Datos */
-        $query = " INSERT INTO vendedores (nombre, apellido, telefono ) VALUES ( '$nombre', '$apellido', '$telefono') ";
+        $query = " UPDATE vendedores SET nombre = '$nombre', apellido = '$apellido', telefono = '$telefono' WHERE id = '$id' ";
+
+        // echo $query;
+        // exit;
 
 
         $resultado = mysqli_query($db, $query);

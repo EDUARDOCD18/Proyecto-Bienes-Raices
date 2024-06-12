@@ -26,9 +26,13 @@ table.propiedades {
   text-align: center;
   margin-top: 4rem;
   border-spacing: 0;
-
   thead {
     background-color: $verde;
+    font-size: 1.2rem;
+
+    @include tablet{
+      font-size: 1.6rem;
+    }
     th {
       color: $blanco;
       padding: 2rem;

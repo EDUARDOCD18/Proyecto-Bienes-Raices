@@ -65,9 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$precio) {
         $errores[] = "Debe agregar un precio de venta.";
     }
-    if (!$imagen['name'] || $imagen['error']) {
-        $errores[] = "La imagen es obligatoria.";
-    }
     // Validar el tamaño de la imagen
     $medida = 1000 * 1000;
     if ($imagen['size'] > $medida) {
@@ -91,9 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
+
         /* Subida de archivos */
 
-        // Crear carpeta
+        /* // Crear carpeta
         $carpetaImagenes = '../../imagenes/';
         if (!is_dir($carpetaImagenes)) {
             mkdir($carpetaImagenes);
@@ -103,16 +101,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
         // Subir la imagen
-        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen); */
 
         /* Insertar en la Base de Datos */
-        $query = " INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id ) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado','$vendedores_id' ) ";
+        $query = " UPDATE propiedades SET titulo = '$titulo', precio = '$precio', descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamiento, vendedores_id = $vendedores_id  WHERE id = $id";
 
 
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
             // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=1');
+            header('Location: ../propiedades?resultado=2');
         } else {
             echo ("Error");
         }
@@ -135,7 +133,7 @@ incluirTemplate('header');
         </div> <?php endforeach; ?>
 
     <!-- Formulario para la crenación de una nueva Propiedad -->
-    <form action="" class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+    <form action="" class="formulario" method="POST" enctype="multipart/form-data">
         <!-- Información General de la Propiedad -->
         <fieldset>
             <legend>
@@ -154,7 +152,7 @@ incluirTemplate('header');
             <label for="imagen">Imagen:</label>
             <input type="file" id="imagen" accept="image/jpeg, image/png" name="imagen">
 
-            <img src="../../imagenes/<?php echo $imagenPropiedad; ?>" alt="Imagen de la propiedad"  class="imagen-small">
+            <img src="../../imagenes/<?php echo $imagenPropiedad; ?>" alt="Imagen de la propiedad" class="imagen-small">
 
             <!-- Descripción para la Propiedad -->
             <label for="descripcion">Descripción:</label>
