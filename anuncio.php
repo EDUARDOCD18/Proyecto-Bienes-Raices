@@ -1,4 +1,12 @@
 <?php
+
+
+
+/* -- Base de Datos -- */
+require 'includes/config/database.php';
+$db = conectarDB();
+
+/* -- Importa el header-- */
 require 'includes/funciones.php';
 incluirTemplate('header');
 ?>
