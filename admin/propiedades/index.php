@@ -1,5 +1,4 @@
 <?php
-
 /* -- Base de Datos -- */
 
 // Importar la Base de Datos
@@ -15,6 +14,35 @@ $resultadoConsulta = mysqli_query($db, $query);
 /* -- Muestra mensaje condiconal -- */
 $resultado = $_GET['resultado'] ?? null;
 
+/* -- Revisar el request method -- */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id']; // Obtener el id y guardarlo
+    $id = filter_var($id, FILTER_VALIDATE_INT); // Validar que el id es entero
+
+    // En caso de que el id exista
+    if ($id) {
+        // Eliminar el archivo
+        $query = "SELECT imagen FROM propiedades WHERE id = $id;"; // Selecciona la img según el id
+        $resultado = mysqli_query($db, $query);
+        $propiedad = mysqli_fetch_assoc($resultado);
+
+        // Borrar la imagen
+        unlink('../../imagenes/' . $propiedad['imagen']); // Borra la img del servidor
+
+        // Realizar la consulta a la bdd para eliminar
+        $query = "DELETE FROM propiedades WHERE id = $id; "; // Elimina la propiedad 
+
+        $resultado = mysqli_query($db, $query); // Manda el script a la bdd
+
+        if ($resultado) {
+            // Redirecionar al usuario
+            header('Location: ../propiedades?resultado=3');
+        } else {
+            echo ("Error");
+        }
+    }
+}
+
 /* -- Importa el header -- */
 require '../../includes/funciones.php';
 incluirTemplate('header');
@@ -27,6 +55,8 @@ incluirTemplate('header');
         <p class="alerta exito">Propiedad Registrada</p>
     <?php elseif (intval($resultado) === 2) : ?>
         <p class="alerta exito">Propiedad Actualizada</p>
+    <?php elseif (intval($resultado) === 3) : ?>
+        <p class="alerta eliminado">Propiedad Eliminada</p>
     <?php endif ?>
 
     <div class="acciones">
@@ -52,8 +82,11 @@ incluirTemplate('header');
                     <td><img src="../../imagenes/<?php echo $propiedad['imagen']; ?>" alt="" class="imagen-tabla"></td>
                     <td><?php echo "$" . $propiedad['precio']; ?></td>
                     <td class="botones-accion">
-                        <a href="#" class="boton-rojo-block">Eliminar</a>
-                        <a href="actualizar.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <form method="POST" class="w-100">
+                            <input type="hidden" name="id" value="<?php echo $propiedad['id'] ?>">
+                            <input type="submit" value="Eliminar" class="boton-rojo-block">
+                        </form>
+                        <a href="actualizarPropiedad.php?id=<?php echo $propiedad['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

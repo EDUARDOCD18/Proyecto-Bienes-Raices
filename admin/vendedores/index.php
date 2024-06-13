@@ -15,6 +15,26 @@ $resultadoConsulta = mysqli_query($db, $query);
 /* -- Muestra mensaje condiconal -- */
 $resultado = $_GET['resultado'] ?? null;
 
+/* -- Revisar el request method -- */
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id']; // Obtener el id y guardarlo
+    $id = filter_var($id, FILTER_VALIDATE_INT); // Validar que el id es entero
+
+    // En caso de que el id exista
+    if ($id) {
+        // Realizar la consulta a la bdd para eliminar
+        $query = "DELETE FROM vendedores WHERE id = $id; "; // Elimina el registro
+        $resultado = mysqli_query($db, $query); // Manda el script a la bdd
+
+        if ($resultado) {
+            // Redirecionar al usuario
+            header('Location: ../vendedores?resultado=3');
+        } else {
+            echo ("Error");
+        }
+    }
+}
+
 /* -- Importa el header -- */
 $resultado = $_GET['resultado'] ?? null;
 require '../../includes/funciones.php';
@@ -28,6 +48,8 @@ incluirTemplate('header');
         <p class="alerta exito">Vendedor Registrado</p>
     <?php elseif (intval($resultado) === 2) : ?>
         <p class="alerta exito">Vendedor Actualizado</p>
+    <?php elseif (intval($resultado) === 3) : ?>
+        <p class="alerta eliminado">Vendedor Eliminado</p>
     <?php endif ?>
 
     <div class="acciones">
@@ -53,7 +75,10 @@ incluirTemplate('header');
                     <td><?php echo $vendedor['apellido']; ?></td>
                     <td><?php echo $vendedor['telefono']; ?></td>
                     <td class="botones-accion">
-                        <a href="#" class="boton-rojo-block">Eliminar</a>
+                        <form method="POST" class="w-100">
+                            <input type="hidden" name="id" value="<?php echo $vendedor['id'] ?>">
+                            <input type="submit" value="Eliminar" class="boton-rojo-block">
+                        </form>
                         <a href="actualizarVendedor.php?id=<?php echo $vendedor['id']; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>

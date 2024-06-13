@@ -1,6 +1,6 @@
 <?php
 
-$resultado = $_GET['resultado'] ?? null;
+/* -- Importa el header -- */
 require '../includes/funciones.php';
 incluirTemplate('header');
 ?>
@@ -12,8 +12,14 @@ incluirTemplate('header');
         <a href="propiedades/index.php" class="boton boton-verde">Administar Propiedades →</a>
         <a href="vendedores/index.php" class="boton boton-verde">Administar Vendedores →</a>
     </div>
+    <picture class="imagen-admin">
+        <source srcset="/bienesraices/build/img/destacada3.webp" type="image/webp" />
+        <source srcset="/bienesraices/build/img/destacada3.jpg" type="image/jpeg" />
+        <img src="/build/img/destacada3.jpg" alt="Destacada 3" />
+    </picture>
 
 </main>
 
 <?php
+/* -- Importa el footer -- */
 incluirTemplate('footer'); ?>
