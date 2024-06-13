@@ -46,4 +46,13 @@
       color: $blanco;
     }
   }
+
+  table tbody tr {
+    color: $blanco;
+    background-color: $grisOscuro;
+
+    &:nth-child(odd) {
+     background-color: darken($gris, 50%) !important;
+    }
+  }
 }

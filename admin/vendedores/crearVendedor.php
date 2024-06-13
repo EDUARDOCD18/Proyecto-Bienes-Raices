@@ -1,5 +1,5 @@
 <?php
-// En caso de error 
+/* -- En caso de error -- */
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
             // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=1');
+            header('Location: ../vendedores?resultado=1');
         } else {
             echo ("Error");
         }
@@ -76,8 +76,8 @@ incluirTemplate('header');
             <?php echo $error; ?>
         </div> <?php endforeach; ?>
 
-    <!-- Formulario para la crenación de una nueva Propiedad -->
-    <form action="" class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+    <!-- Formulario para la crenación de un Nuevo Vendedor -->
+    <form action="" class="formulario" method="POST" action="/admin/vendedores/crearVendedor.php" enctype="multipart/form-data">
         <!-- Datos del Vendedor o de la Vendedora -->
         <fieldset>
             <legend>
@@ -86,15 +86,15 @@ incluirTemplate('header');
 
             <!-- Nombre del Vendedor o Vendedora -->
             <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre ?>">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre; ?>">
 
             <!-- Apellido del Vendedor o Vendedora -->
             <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido ?>">
+            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido; ?>">
 
             <!-- Teléfono -->
             <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora"><?php echo $telefono ?></input>
+            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora" value="<?php echo $telefono; ?>"></input>
         </fieldset>
 
         <input type="submit" value="Confirmar Registro" class="boton boton-verde">

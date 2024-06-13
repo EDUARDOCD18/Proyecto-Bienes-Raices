@@ -5,6 +5,7 @@
     .acciones{
         display: flex;
         justify-content: space-evenly;
+        gap: 2rem;
     }
 }
 .contenido-centrado {
@@ -14,4 +15,8 @@
 .alinear-derecha{
     display: flex;
     justify-content: flex-end;
+}
+
+.w-100{
+    width: 80%;
 }
