@@ -43,4 +43,11 @@
     margin: 0;
     width: auto;
   }
+
+  .requerido:before {
+    content: "*";
+    color: $rojo;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
 }

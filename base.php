@@ -1,4 +1,6 @@
 <?php
+
+/* -- Importar el header -- */
 require 'includes/funciones.php';
 incluirTemplate('header');
 ?>
@@ -8,4 +10,6 @@ incluirTemplate('header');
 </main>
 
 <?php
+
+/* -- Importar el header -- */
 incluirTemplate('footer'); ?>
