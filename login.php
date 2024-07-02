@@ -19,9 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Revisar si el usuario existe.
         $query = "SELECT * FROM usuarios WHERE email = '$email' ";
         $resultado = mysqli_query($db, $query);
-        
-        var_dump($resultado);
+
         if ($resultado->num_rows) {
+            // Revisar que el password sea correcto
+            $usuario = mysqli_fetch_assoc($resultado);
+
+            // Vereficar si el password es correcto o no
+            $auth = password_verify($password, $usuario['password']);
+
+            if ($auth) {
+                // Password correcto
+            } else {
+                $errores[] = "Contraseña incorrecta";
+            }
         } else {
             $errores[] = "Usuario no existe";
         }
@@ -48,8 +58,7 @@ incluirTemplate('header');
             <legend>Identifiquese</legend>
 
             <label for="email" class="requerido">E-mail:</label>
-            <input type="email" name="email" placeholder="correo@correo.com" id="nombre" />
-
+            <input type="email" name="email" placeholder="correo@correo.com" id="nombre" value="<?php echo $email; ?>" />
             <label for="password" class="requerido">Password:</label>
             <input type="password" name="password" placeholder="Tu password" id="password" />
         </fieldset>
