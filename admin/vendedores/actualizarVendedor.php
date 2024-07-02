@@ -1,4 +1,10 @@
 <?php
+require '../../includes/funciones.php';
+$auth = estaAutenticado();
+
+if (!$auth) {
+    header('Location: ../');
+}
 
 /* -- Validar que el id sea el correcto -- */
 $id = $_GET['id']; // Obtener el id desde la URL
@@ -77,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Importar el header */
-require '../../includes/funciones.php';
 incluirTemplate('header');
 ?>
 

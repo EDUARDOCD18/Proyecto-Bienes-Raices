@@ -1,7 +1,12 @@
 <?php
+require '../includes/funciones.php';
+$auth = estaAutenticado();
+
+if (!$auth) {
+    header('Location: ../');
+}
 
 /* -- Importa el header -- */
-require '../includes/funciones.php';
 incluirTemplate('header');
 ?>
 

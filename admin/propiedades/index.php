@@ -1,4 +1,11 @@
 <?php
+require '../../includes/funciones.php';
+$auth = estaAutenticado();
+
+if (!$auth) {
+    header('Location: ../');
+}
+
 /* -- Base de Datos -- */
 
 // Importar la Base de Datos
@@ -44,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* -- Importa el header -- */
-require '../../includes/funciones.php';
 incluirTemplate('header');
 ?>
 
