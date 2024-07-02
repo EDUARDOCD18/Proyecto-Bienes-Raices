@@ -1,4 +1,13 @@
 <?php
+
+session_start();
+$auth = $_SESSION['login'];
+
+if (!$auth) {
+  header('Location: /');
+}
+
+/* -- Importar el header -- */
 require 'includes/funciones.php';
 incluirTemplate('header', $inicio = true);
 ?>

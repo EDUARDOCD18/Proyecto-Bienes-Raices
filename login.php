@@ -29,6 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($auth) {
                 // Password correcto
+                session_start();
+                $_SESSION['usuario'] = $usuario['email'];
+                $_SESSION['login'] = true;
+
             } else {
                 $errores[] = "Contraseña incorrecta";
             }
