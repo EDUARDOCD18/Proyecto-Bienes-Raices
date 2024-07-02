@@ -33,6 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario'] = $usuario['email'];
                 $_SESSION['login'] = true;
 
+                header('Location: /bienesraices/admin');
+
             } else {
                 $errores[] = "Contraseña incorrecta";
             }
