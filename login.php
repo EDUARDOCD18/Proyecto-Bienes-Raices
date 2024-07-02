@@ -14,6 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$email || !$password) {
         $errores[] = "Correo o Contraseña no válidos.";
     }
+
+    if (empty($errores)) {
+        // Revisar si el usuario existe.
+        $query = "SELECT * FROM usuarios WHERE email = '$email' ";
+        $resultado = mysqli_query($db, $query);
+        
+        var_dump($resultado);
+        if ($resultado->num_rows) {
+        } else {
+            $errores[] = "Usuario no existe";
+        }
+    }
 }
 
 /* -- Importar el header -- */
