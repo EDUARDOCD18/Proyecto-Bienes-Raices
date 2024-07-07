@@ -6,6 +6,7 @@ require 'includes/app.php';
 $db = conectarDB();
 
 $errores = [];
+$email = "";
 
 /* -- Autenticar el usuario -- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

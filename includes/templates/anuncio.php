@@ -21,7 +21,7 @@ $resultado = mysqli_query($db, $query);
             </picture>
 
             <div class="contenido-anuncio">
-                <h3><?php echo $propiedad['titulo'] ?></h3>
+                <h3 class="anuncio-titulo"><?php echo $propiedad['titulo'] ?></h3>
                 <p><?php echo $propiedad['descripcion'] ?></p>
                 <p class="precio">$<?php echo $propiedad['precio'] ?></p>
 
