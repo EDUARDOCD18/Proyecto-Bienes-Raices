@@ -1,7 +1,8 @@
 <?php
 
+require 'includes/app.php';
+
 /* --Base de Datos -- */
-require 'includes/config/database.php';
 $db = conectarDB();
 
 $errores = [];
@@ -45,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* -- Importar el header -- */
-require 'includes/funciones.php';
 incluirTemplate('header');
 ?>
 

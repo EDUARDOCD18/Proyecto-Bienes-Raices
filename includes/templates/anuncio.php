@@ -3,7 +3,6 @@
 /* -- Base de Datos-- */
 
 // Importar la Base de Datos
-require __DIR__ . '/../config/database.php';
 $db = conectarDB();
 
 // Consultar la Base de Datos

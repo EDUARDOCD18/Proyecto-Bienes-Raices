@@ -8,8 +8,9 @@ if (!$id) {
   header('Location: /bienesraices');
 }
 
+require 'includes/app.php';
+
 // Importar la Base de Datos
-require 'includes/config/database.php';
 $db = conectarDB();
 
 // Consultar la Base de Datos
@@ -30,7 +31,6 @@ if (!$id) {
 }
 
 /* -- Importa el header-- */
-require 'includes/funciones.php';
 incluirTemplate('header');
 ?>
 
