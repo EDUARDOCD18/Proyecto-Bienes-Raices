@@ -1,11 +1,15 @@
 <?php
-// En caso de error 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require '../../includes/app.php';
+
+use App\Propiedad;
+
+$propiedad = new Propiedad;
+echo "<pre>";
+var_dump($propiedad);
+echo "</pre>";
+exit;
 
 /* Base de Datos */
-require '../../includes/config/database.php';
 $db = conectarDB();
 
 // Consultar los vendedores en la BDD
@@ -26,12 +30,6 @@ $errores = [];
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        /*  echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
-    echo "<pre>";
-    var_dump($_FILES);
-    echo "</pre>" */;
 
     $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
     $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -77,10 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-    /*  echo "<pre>";
-    var_dump($errores);
-    echo "</pre>"; */
-
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
         /* Subida de archivos */
@@ -112,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Importar el header */
-require '../../includes/funciones.php';
+require '../../includes/app.php';
 incluirTemplate('header');
 ?>
 

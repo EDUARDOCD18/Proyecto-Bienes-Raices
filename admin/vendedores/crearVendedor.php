@@ -1,11 +1,16 @@
 <?php
-/* -- En caso de error -- */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
+require '../../includes/app.php';
+use App\Vendedor;
+
+$vendedor = new Vendedor;
+echo "<pre>";
+var_dump($vendedor);
+echo "</pre>";
+
+exit;
 
 /* Base de Datos */
-require '../../includes/config/database.php';
 $db = conectarDB();
 
 // Datos vacíos
@@ -62,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Importar el header */
-require '../../includes/funciones.php';
+require '../../includes/app.php';
 incluirTemplate('header');
 ?>
 

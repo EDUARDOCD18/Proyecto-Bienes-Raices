@@ -1,5 +1,5 @@
 <?php
-require '../../includes/funciones.php';
+require '../../includes/app.php';
 $auth = estaAutenticado();
 
 if (!$auth) {
@@ -10,7 +10,6 @@ if (!$auth) {
 /* -- Base de Datos -- */
 
 // Importar la Base de Datos
-require '../../includes/config/database.php';
 $db = conectarDB();
 
 // Escribir el query 
@@ -60,7 +59,7 @@ incluirTemplate('header');
 
     <div class="acciones">
         <a href="../" class="boton boton-amarillo">← Volver Atrás</a>
-        <a href="crearVendedor.php" class="boton boton-verde">Nueva Vendedor →</a>
+        <a href="crearVendedor.php" class="boton boton-verde">Nuevo(a) Vendedor(a) →</a>
     </div>
 
     <table class="propiedades">

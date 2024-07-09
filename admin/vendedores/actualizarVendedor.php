@@ -1,5 +1,5 @@
 <?php
-require '../../includes/funciones.php';
+require '../../includes/app.php';
 $auth = estaAutenticado();
 
 if (!$auth) {
@@ -18,7 +18,6 @@ if (!$id) {
 /* -- Base de Datos -- */
 
 // Importar la Base de Datos
-require '../../includes/config/database.php';
 $db = conectarDB();
 
 // Consulta a la tabla de vendedores
