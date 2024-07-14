@@ -4,10 +4,7 @@ require '../../includes/app.php';
 use App\Propiedad;
 
 $propiedad = new Propiedad;
-echo "<pre>";
-var_dump($propiedad);
-echo "</pre>";
-exit;
+debuguear($propiedad);
 
 /* Base de Datos */
 $db = conectarDB();
@@ -106,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Importar el header */
-require '../../includes/app.php';
 incluirTemplate('header');
 ?>
 

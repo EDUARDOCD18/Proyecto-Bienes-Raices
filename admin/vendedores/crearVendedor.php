@@ -4,11 +4,8 @@ require '../../includes/app.php';
 use App\Vendedor;
 
 $vendedor = new Vendedor;
-echo "<pre>";
-var_dump($vendedor);
-echo "</pre>";
+debuguear($vendedor);
 
-exit;
 
 /* Base de Datos */
 $db = conectarDB();
@@ -67,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Importar el header */
-require '../../includes/app.php';
 incluirTemplate('header');
 ?>
 
