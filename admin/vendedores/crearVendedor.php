@@ -3,9 +3,6 @@
 require '../../includes/app.php';
 use App\Vendedor;
 
-$vendedor = new Vendedor;
-debuguear($vendedor);
-
 
 /* Base de Datos */
 $db = conectarDB();
@@ -20,12 +17,10 @@ $errores = [];
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        /*  echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
-    echo "<pre>";
-    var_dump($_FILES);
-    echo "</pre>" */;
+
+    $vendedor = new Vendedor($_POST);
+    $vendedor->guardar();
+    debuguear($vendedor);
 
     $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
     $apellido = mysqli_real_escape_string($db, $_POST['apellido']);
@@ -48,10 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
-
-        /* Insertar en la Base de Datos */
-        $query = " INSERT INTO vendedores (nombre, apellido, telefono ) VALUES ( '$nombre', '$apellido', '$telefono') ";
-
 
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
