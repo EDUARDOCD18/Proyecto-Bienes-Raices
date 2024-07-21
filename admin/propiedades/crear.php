@@ -3,9 +3,6 @@ require '../../includes/app.php';
 
 use App\Propiedad;
 
-$propiedad = new Propiedad;
-debuguear($propiedad);
-
 /* Base de Datos */
 $db = conectarDB();
 
@@ -28,13 +25,18 @@ $errores = [];
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    $propiedad = new Propiedad($_POST);
+    
+    $propiedad->guardar();
+    debuguear($propiedad);
+
     $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
     $precio = mysqli_real_escape_string($db, $_POST['precio']);
     $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
     $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
     $wc = mysqli_real_escape_string($db, $_POST['wc']);
     $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-    $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedor']);
+    $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id']);
     $creado = date('Y/m/d');
 
     // Asignar una variable a files
@@ -164,7 +166,7 @@ incluirTemplate('header');
             <legend>Vendedor</legend>
 
             <!-- Selección para el vendedor -->
-            <select name="vendedor">
+            <select name="vendedores_id">
                 <option value="">-- Seleccione --</option>
                 <?php while ($vendedor =  mysqli_fetch_assoc($resultado)) : ?>
                     <option <?php echo $vendedores_id === $vendedor['id'] ? 'selected' : ''; ?> value="<?php echo $vendedor['id']; ?>"> <?php echo $vendedor['nombre'] . " " . $vendedor['apellido']; ?> </option>

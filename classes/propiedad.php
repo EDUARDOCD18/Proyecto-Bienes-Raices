@@ -24,7 +24,11 @@ class Propiedad
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
-        $this->creado = $args['creado'] ?? '';
+        $this->creado = date('Y/m/d');
         $this->vendedores_id = $args['vendedores_id'] ?? '';
+    }
+
+    public function guardar(){
+        echo "Guardando en la BD";
     }
 }
