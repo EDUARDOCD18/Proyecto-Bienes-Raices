@@ -33,8 +33,11 @@ class Vendedor
         /* debuguear($atributos); */
 
         /* Insertar en la Base de Datos */
-        $query = " INSERT INTO vendedores (nombre, apellido, telefono ) VALUES ( '$this->nombre', '$this->apellido', '$this->telefono') ";
-
+       $query = " INSERT INTO vendedores (";
+       $query .= join(', ', array_keys($atributos));
+       $query .= " ) VALUES ('";
+       $query .= join ("', '", array_values($atributos));
+       $query .= " ')";
 
         $resultado = self::$db->query($query);
 
