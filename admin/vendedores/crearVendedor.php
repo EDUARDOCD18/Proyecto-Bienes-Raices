@@ -1,10 +1,11 @@
 <?php
 
 require '../../includes/app.php';
+
 use App\Vendedor;
 
-
 /* Base de Datos */
+
 $db = conectarDB();
 
 // Datos vacíos
@@ -13,36 +14,17 @@ $apellido = '';
 $telefono = '';
 
 // Arreglo con los mensajes de errores
-$errores = [];
+$errores = Vendedor::getErrores();
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $vendedor = new Vendedor($_POST);
-    $vendedor->guardar();
-    debuguear($vendedor);
-
-    $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
-    $apellido = mysqli_real_escape_string($db, $_POST['apellido']);
-    $telefono = mysqli_real_escape_string($db, $_POST['telefono']);
-
-    /* Validaciones para los campos vacíos */
-    if (!$nombre) {
-        $errores[] = "Campo Nombre no puede ir vacío.";
-    }
-    if (!$apellido) {
-        $errores[] = "Campo Apellido no puede ir vacío.";
-    }
-    if (!$telefono) {
-        $errores[] = "Campo Teléfono no puede ir vacío.";
-    }
-
-    /*  echo "<pre>";
-    var_dump($errores);
-    echo "</pre>"; */
-
+    $errores = $vendedor->validar();
+    
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
+        $vendedor->guardar();
 
         $resultado = mysqli_query($db, $query);
         if ($resultado) {

@@ -2,13 +2,19 @@
 
 namespace App;
 
+/* CLASE PROPIEDAD */
+
 class Propiedad
 {
-    // Base de datos
+    /* -- Base de Datos -- */
     protected static $db;
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id'];
 
-    // Atributos
+    /* -- Errores -- */
+    protected static $errores = [];
+
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id']; // Columnas de la BD
+
+    /* -- Atributos -- */
     public $id;
     public $titulo;
     public $precio;
@@ -20,12 +26,13 @@ class Propiedad
     public $creado;
     public $vendedores_id;
 
-    // Definir la conección a la base de datos
+    /* -- Definir la conección a la base de datos -- */
     public static function setDB($database)
     {
         self::$db = $database;
     }
 
+    /* -- Constructor -- */
     public function __construct($args = [])
     {
         // Sanitizar los datos
@@ -41,6 +48,7 @@ class Propiedad
         $this->vendedores_id = $args['vendedores_id'] ?? '';
     }
 
+    /* -- Función para guardar en la BD-- */
     public function guardar()
     {
         $atributos = $this->sanitizarAtributos();
@@ -57,6 +65,7 @@ class Propiedad
         debuguear($resultado);
     }
 
+    /* -- Función para obtener los atributos -- */
     public function atributos()
     {
         $atributos = [];
@@ -67,6 +76,7 @@ class Propiedad
         return $atributos;
     }
 
+    /* -- Función para sanitizar -- */
     public function sanitizarAtributos()
     {
         $atributos = $this->atributos();
@@ -77,5 +87,51 @@ class Propiedad
         }
 
         return $sanitizado;
+    }
+
+    /* -- Validación -- */
+    public static function getErrores()
+    {
+        return self::$errores;
+    }
+
+    public function validar()
+    {
+        // Asignar una variable a files
+        $this->imagen = $_FILES['imagen'];
+
+        /* Validaciones para los campos vacíos */
+        if (!$this->titulo) {
+            self::$errores[] = "Debe agregar un título.";
+        }
+
+        if (!$this->precio) {
+            self::$errores[] = "Debe agregar un precio de venta.";
+        }
+        if (!$this->imagen['name'] || $this->imagen['error']) {
+            self::$errores[] = "La imagen es obligatoria.";
+        }
+        // Validar el tamaño de la imagen
+        $medida = 1000 * 1000;
+        if ($this->imagen['size'] > $medida) {
+            self::$errores[] = "La imagene es muy pesada.";
+        }
+        if (strlen($this->descripcion) < 50) {
+            self::$errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo.";
+        }
+        if (!$this->habitaciones) {
+            self::$errores[] = "Debe agregar mínimo una habitación.";
+        }
+        if (!$this->wc) {
+            self::$errores[] = "Debe agregar mínimo un baño.";
+        }
+        if (!$this->estacionamiento) {
+            self::$errores[] = "Debe agregar mínimo un puesto de estacionamiento.";
+        }
+        if (!$this->vendedores_id) {
+            self::$errores[] = "Debe elegir al vendedor o vendedora.";
+        }
+
+        return self::$errores;
     }
 }

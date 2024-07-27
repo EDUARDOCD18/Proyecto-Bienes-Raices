@@ -4,6 +4,7 @@ require '../../includes/app.php';
 use App\Propiedad;
 
 /* Base de Datos */
+
 $db = conectarDB();
 
 // Consultar los vendedores en la BDD
@@ -20,62 +21,21 @@ $estacionamiento = '';
 $vendedores_id = '';
 
 // Arreglo con los mensajes de errores
-$errores = [];
+$errores = Propiedad::getErrores();
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $propiedad = new Propiedad($_POST);
-    
-    $propiedad->guardar();
-    debuguear($propiedad);
-
-    $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
-    $precio = mysqli_real_escape_string($db, $_POST['precio']);
-    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
-    $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
-    $wc = mysqli_real_escape_string($db, $_POST['wc']);
-    $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
-    $vendedores_id = mysqli_real_escape_string($db, $_POST['vendedores_id']);
-    $creado = date('Y/m/d');
-
-    // Asignar una variable a files
-    $imagen = $_FILES['imagen'];
-
-    /* Validaciones para los campos vacíos */
-    if (!$titulo) {
-        $errores[] = "Debe agregar un título.";
-    }
-    if (!$precio) {
-        $errores[] = "Debe agregar un precio de venta.";
-    }
-    if (!$imagen['name'] || $imagen['error']) {
-        $errores[] = "La imagen es obligatoria.";
-    }
-    // Validar el tamaño de la imagen
-    $medida = 1000 * 1000;
-    if ($imagen['size'] > $medida) {
-        $errores[] = "La imagene es muy pesada.";
-    }
-    if (strlen($descripcion) < 50) {
-        $errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo.";
-    }
-    if (!$habitaciones) {
-        $errores[] = "Debe agregar mínimo una habitación.";
-    }
-    if (!$wc) {
-        $errores[] = "Debe agregar mínimo un baño.";
-    }
-    if (!$estacionamiento) {
-        $errores[] = "Debe agregar mínimo un puesto de estacionamiento.";
-    }
-    if (!$vendedores_id) {
-        $errores[] = "Debe elegir al vendedor o vendedora.";
-    }
-
+    $errores = $propiedad->validar();
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
+        $propiedad->guardar(); // Llamar función para guardar en la BD
+
+        // Asignar una variable a files
+        $imagen = $_FILES['imagen'];
+
         /* Subida de archivos */
 
         // Crear carpeta
