@@ -8,11 +8,10 @@ class Propiedad
 {
     /* -- Base de Datos -- */
     protected static $db;
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id']; // Columnas de la BD
 
     /* -- Errores -- */
     protected static $errores = [];
-
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id']; // Columnas de la BD
 
     /* -- Atributos -- */
     public $id;
@@ -39,7 +38,7 @@ class Propiedad
         $this->id = $args['id'] ?? '';
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
-        $this->imagen = $args['imagen'] ?? 'imagen.jpg';
+        $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->habitaciones = $args['habitaciones'] ?? '';
         $this->wc = $args['wc'] ?? '';
@@ -62,7 +61,7 @@ class Propiedad
 
         $resultado = self::$db->query($query);
 
-        debuguear($resultado);
+        return $resultado;
     }
 
     /* -- Función para obtener los atributos -- */
@@ -89,6 +88,14 @@ class Propiedad
         return $sanitizado;
     }
 
+    // Subida de archivos
+    public function setImage($imagen)
+    {
+        if ($imagen) {
+            $this->imagen = $imagen;
+        }
+    }
+
     /* -- Validación -- */
     public static function getErrores()
     {
@@ -97,24 +104,15 @@ class Propiedad
 
     public function validar()
     {
-        // Asignar una variable a files
-        $this->imagen = $_FILES['imagen'];
-
         /* Validaciones para los campos vacíos */
         if (!$this->titulo) {
             self::$errores[] = "Debe agregar un título.";
         }
-
         if (!$this->precio) {
             self::$errores[] = "Debe agregar un precio de venta.";
         }
-        if (!$this->imagen['name'] || $this->imagen['error']) {
+        if (!$this->imagen) {
             self::$errores[] = "La imagen es obligatoria.";
-        }
-        // Validar el tamaño de la imagen
-        $medida = 1000 * 1000;
-        if ($this->imagen['size'] > $medida) {
-            self::$errores[] = "La imagene es muy pesada.";
         }
         if (strlen($this->descripcion) < 50) {
             self::$errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo.";

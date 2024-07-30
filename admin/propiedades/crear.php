@@ -2,14 +2,22 @@
 require '../../includes/app.php';
 
 use App\Propiedad;
+use App\Vendedor;
+
+//Importar Intervention Image
+use Intervention\Image\ImageManagerStatic as Image;
+
+estaAutenticado();
 
 /* Base de Datos */
-
 $db = conectarDB();
 
 // Consultar los vendedores en la BDD
 $consulta = "SELECT * FROM vendedores";
 $resultado = mysqli_query($db, $consulta);
+
+// Arreglo con los mensajes de errores
+$errores = Propiedad::getErrores();
 
 // Datos vacíos
 $titulo = '';
@@ -20,42 +28,41 @@ $wc = '';
 $estacionamiento = '';
 $vendedores_id = '';
 
-// Arreglo con los mensajes de errores
-$errores = Propiedad::getErrores();
-
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    // Instancia el objeto
     $propiedad = new Propiedad($_POST);
+
+    // Generar un nombre único para cada imagen
+    $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+
+    // Setea la imagen
+    // Realizar un resize con Intervention Image
+    if ($_FILES['imagen']['tmp_name']) {
+        $imagenSubir = Image::make($_FILES['imagen']['tmp_name'])->fit(400, 300);
+        $propiedad->setImage($nombreImagen);
+    }
+
+    // Validar
     $errores = $propiedad->validar();
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
-        $propiedad->guardar(); // Llamar función para guardar en la BD
-
-        // Asignar una variable a files
-        $imagen = $_FILES['imagen'];
-
-        /* Subida de archivos */
 
         // Crear carpeta
-        $carpetaImagenes = '../../imagenes/';
-        if (!is_dir($carpetaImagenes)) {
-            mkdir($carpetaImagenes);
+        if (!is_dir(CARPETA_IMAGENES)) {
+            mkdir(CARPETA_IMAGENES);
         }
 
-        // Generar un nombre único para cada imagen
-        $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+        // Guarda la imagen
+        $imagenSubir->save(CARPETA_IMAGENES . $nombreImagen);
 
-        // Subir la imagen
-        move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
+        $resultado = $propiedad->guardar(); // Llamar función para guardar en la BD
 
-        $resultado = mysqli_query($db, $query);
         if ($resultado) {
             // Redirecionar al usuario
             header('Location: ../propiedades?resultado=1');
-        } else {
-            echo ("Error");
         }
     }
 }
@@ -84,11 +91,11 @@ incluirTemplate('header');
 
             <!-- Título de la Propiedad -->
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" placeholder="Título de la Propiedad" value="<?php echo $titulo ?>">
+            <input type="text" id="titulo" name="titulo" placeholder="Título de la Propiedad" value="<?php echo $_POST['titulo'] ?? '' ?>">
 
             <!-- Precio de la Propiedad -->
             <label for="precio">Valor:</label>
-            <input type="number" id="precio" name="precio" placeholder="Valor de la Propiedad" value="<?php echo $precio ?>">
+            <input type="number" id="precio" name="precio" placeholder="Valor de la Propiedad" value="<?php echo $_POST['precio'] ?? '' ?>">
 
             <!-- Cargar una imagen de la Propiedad -->
             <label for="imagen">Imagen:</label>
@@ -96,7 +103,7 @@ incluirTemplate('header');
 
             <!-- Descripción para la Propiedad -->
             <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" placeholder="Describe la Propiedad"><?php echo $descripcion ?></textarea>
+            <textarea id="descripcion" name="descripcion" placeholder="Describe la Propiedad"><?php echo $_POST['descripcion'] ?? '' ?></textarea>
         </fieldset>
 
         <!-- Atributos o caraterísticas de la Propiedad -->
@@ -105,15 +112,15 @@ incluirTemplate('header');
 
             <!-- Nº de habitaciones -->
             <label for="habitaciones">Nº de Habitaciones:</label>
-            <input type="number" id="habitaciones" name="habitaciones" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $habitaciones ?>">
+            <input type="number" id="habitaciones" name="habitaciones" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $_POST['habitaciones'] ?? '' ?>">
 
             <!-- Nº de baños -->
             <label for="wc">Nº de baños:</label>
-            <input type="number" id="wc" name="wc" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $wc ?>">
+            <input type="number" id="wc" name="wc" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $_POST['wc'] ?? '' ?>">
 
             <!-- Nº de puestos de estacionamiento -->
             <label for="estacionamiento">Nº de puestos de estacionamiento:</label>
-            <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $estacionamiento ?>">
+            <input type="number" id="estacionamiento" name="estacionamiento" placeholder="Ejm: 2" min="1" max="10" value="<?php echo $_POST['estacionamiento'] ?? '' ?>">
         </fieldset>
 
 
