@@ -1,21 +1,11 @@
 <?php
 require '../../includes/app.php';
-$auth = estaAutenticado();
+estaAutenticado();
 
-if (!$auth) {
-    header('Location: ../');
-}
+use App\Propiedad;
 
-/* -- Base de Datos -- */
-
-// Importar la Base de Datos
-$db = conectarDB();
-
-// Escribir el query 
-$query = "SELECT * FROM propiedades";
-
-// Consultar la base de datos
-$resultadoConsulta = mysqli_query($db, $query);
+// Método para obtener las propiedades con Active Record
+$propiedades = Propiedad::all();
 
 /* -- Muestra mensaje condiconal -- */
 $resultado = $_GET['resultado'] ?? null;

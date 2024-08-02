@@ -96,4 +96,43 @@ class Vendedor
 
         return self::$errores;
     }
+
+    // Lista para todas las propiedades
+    public static function all()
+    {
+        $resultado = $query = "SELECT * FROM vendedores";
+        self::consultarSQL($query);
+
+        return $resultado;
+    }
+
+    public static function consultarSQL($query)
+    {
+        // Consultar SQL
+        $resultado = self::$db->query($query);
+
+        // Iterar los resultados
+        $array = [];
+        while ($registro = $resultado->fetch_assoc()) {
+            $arry[] = static::crearObjeto($registro);
+        }
+
+        // Liberar memoria
+        $resultado->free();
+
+        // Retornar los resultados
+    }
+
+    protected static function crearObjeto($registro)
+    {
+        $objeto = new self;
+
+        foreach ($registro as $key => $value) {
+            if (property_exists($objeto, $key)) {
+                $objeto->$key = $value;
+            }
+        }
+
+        return $objeto;
+    }
 }
