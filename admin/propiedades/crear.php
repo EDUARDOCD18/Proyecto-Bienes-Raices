@@ -5,7 +5,8 @@ use App\Propiedad;
 use App\Vendedor;
 
 //Importar Intervention Image
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManager as Image;
+use Intervention\Image\Drivers\Gd\Driver;
 
 estaAutenticado();
 
@@ -40,7 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Setea la imagen
     // Realizar un resize con Intervention Image
     if ($_FILES['imagen']['tmp_name']) {
-        $imagenSubir = Image::make($_FILES['imagen']['tmp_name'])->fit(400, 300);
+        $manager = new Image(Driver::class);
+        $imagenSubir = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
         $propiedad->setImage($nombreImagen);
     }
 

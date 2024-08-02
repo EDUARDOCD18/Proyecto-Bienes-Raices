@@ -4,8 +4,9 @@ require '../../includes/app.php';
 
 use App\Vendedor;
 
-/* Base de Datos */
+estaAutenticado();
 
+/* Base de Datos */
 $db = conectarDB();
 
 // Datos vacíos
@@ -30,9 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($resultado) {
             // Redirecionar al usuario
             header('Location: ../vendedores?resultado=1');
-        } else {
-            echo ("Error");
-        }
+        } 
     }
 }
 
