@@ -44,7 +44,7 @@ class Propiedad
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date('Y/m/d');
-        $this->vendedores_id = $args['vendedores_id'] ?? 1;
+        $this->vendedores_id = $args['vendedores_id'] ?? 5;
     }
 
     /* -- Función para guardar en la BD-- */
@@ -143,7 +143,8 @@ class Propiedad
     }
 
     // Busca un registro por su id
-    public static function find($id){
+    public static function find($id)
+    {
         $query = "SELECT * FROM propiedades WHERE id = $id";
         $resultado = self::consultarSQL($query);
 
@@ -179,5 +180,15 @@ class Propiedad
         }
 
         return $objeto;
+    }
+
+    // Sincroniza el objeto en memoria con los cambios realizados por el usuario
+    public function sinc($args = [])
+    {
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key)  && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
     }
 }

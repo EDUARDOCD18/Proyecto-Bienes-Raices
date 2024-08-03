@@ -26,16 +26,16 @@ $errores = Propiedad::getErrores();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Instancia el objeto
-    $propiedad = new Propiedad($_POST);
+    $propiedad = new Propiedad($_POST['propiedad']);
 
     // Generar un nombre único para cada imagen
     $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
 
     // Setea la imagen
     // Realizar un resize con Intervention Image
-    if ($_FILES['imagen']['tmp_name']) {
+    if ($_FILES['propiedad']['tmp_name']['imagen']) {
         $manager = new Image(Driver::class);
-        $imagenSubir = $manager->read($_FILES['imagen']['tmp_name'])->cover(800, 600);
+        $imagenSubir = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
         $propiedad->setImage($nombreImagen);
     }
 

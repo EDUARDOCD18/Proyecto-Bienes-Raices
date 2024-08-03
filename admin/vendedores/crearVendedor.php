@@ -17,7 +17,7 @@ $errores = Vendedor::getErrores();
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $vendedor = new Vendedor($_POST);
+    $vendedor = new Vendedor($_POST['vendedor']);
     $errores = $vendedor->validar();
 
     $resultado = $vendedor->guardar();

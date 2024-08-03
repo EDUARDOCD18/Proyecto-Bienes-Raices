@@ -28,9 +28,11 @@ $errores = [];
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
-    $apellido = mysqli_real_escape_string($db, $_POST['apellido']);
-    $telefono = mysqli_real_escape_string($db, $_POST['telefono']);
+    // Asignar atributos 
+    $args = $_POST['vendedor'];
+
+    $vendedor->sinc($args);
+    debuguear($vendedor);
 
     /* -- Validaciones para los campos vacíos -- */
     if (!$nombre) {
