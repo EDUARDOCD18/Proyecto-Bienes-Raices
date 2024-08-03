@@ -1,10 +1,9 @@
 <?php
-require '../../includes/app.php';
-$auth = estaAutenticado();
 
-if (!$auth) {
-    header('Location: ../');
-}
+use App\Vendedor;
+
+require '../../includes/app.php';
+estaAutenticado();
 
 /* -- Validar que el id sea el correcto -- */
 $id = $_GET['id']; // Obtener el id desde la URL
@@ -20,27 +19,14 @@ if (!$id) {
 // Importar la Base de Datos
 $db = conectarDB();
 
-// Consulta a la tabla de vendedores
-$consulta = "SELECT * FROM vendedores WHERE id = $id";
-$resultado = mysqli_query($db, $consulta);
-$vendedor = mysqli_fetch_assoc($resultado);
-
-/* -- Datos vacíos -- */
-$nombre = $vendedor['nombre'];
-$apellido = $vendedor['apellido'];
-$telefono = $vendedor['telefono'];
+// Obtener los datos del vendedor
+$vendedor = Vendedor::find($id);
 
 /* -- Arreglo con los mensajes de errores -- */
 $errores = [];
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        /*  echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
-    echo "<pre>";
-    var_dump($_FILES);
-    echo "</pre>" */;
 
     $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
     $apellido = mysqli_real_escape_string($db, $_POST['apellido']);
@@ -57,19 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "Campo Teléfono no puede ir vacío.";
     }
 
-    /*  echo "<pre>";
-    var_dump($errores);
-    echo "</pre>"; */
-
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
 
         /* Insertar en la Base de Datos */
         $query = " UPDATE vendedores SET nombre = '$nombre', apellido = '$apellido', telefono = '$telefono' WHERE id = '$id' ";
-
-        // echo $query;
-        // exit;
-
 
         $resultado = mysqli_query($db, $query);
         if ($resultado) {
@@ -98,23 +76,7 @@ incluirTemplate('header');
     <!-- Formulario para la crenación de un Nuevo Vendedor -->
     <form action="" class="formulario" method="POST" action="/admin/vendedores/crearVendedor.php" enctype="multipart/form-data">
         <!-- Datos del Vendedor o de la Vendedora -->
-        <fieldset>
-            <legend>
-                Datos del Vendedor o de la Vendedora
-            </legend>
-
-            <!-- Nombre del Vendedor o Vendedora -->
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre del Vendedor o Vendedora" value="<?php echo $nombre; ?>">
-
-            <!-- Apellido del Vendedor o Vendedora -->
-            <label for="apellido">Apellido:</label>
-            <input type="text" id="apellido" name="apellido" placeholder="Apellido del Vendedor o Vendedora" value="<?php echo $apellido; ?>">
-
-            <!-- Teléfono -->
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono del Vendedor o Vendedora" value="<?php echo $telefono; ?>"></input>
-        </fieldset>
+        <?php include '../../includes/templates/formulario_vendedor.php'; ?>
 
         <input type="submit" value="Actualizar Registro" class="boton boton-verde">
     </form> <!-- .formulario -->

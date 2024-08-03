@@ -97,13 +97,22 @@ class Vendedor
         return self::$errores;
     }
 
-    // Lista para todas las propiedades
+    // Lista para todos los registros
     public static function all()
     {
         $query = "SELECT * FROM vendedores";
         $resultado = self::consultarSQL($query);
 
         return $resultado;
+    }
+
+    // Buscar un registro por su id
+    public static function find($id)
+    {
+        $query = "SELECT * FROM vendedores WHERE id = $id";
+        $resultado = self::consultarSQL($query);
+
+        return array_shift($resultado);
     }
 
     public static function consultarSQL($query)
