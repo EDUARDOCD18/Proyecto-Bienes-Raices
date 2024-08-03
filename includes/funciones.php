@@ -27,3 +27,10 @@ function debuguear($variable)
     echo "</pre>";
     exit;
 }
+
+// Escapar el HTML
+function s($html): String
+{
+    $s = htmlspecialchars($html);
+    return $s;
+}

@@ -28,10 +28,10 @@ class Vendedor
     /* CONSTRUCTOR */
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? 'No ID';
-        $this->nombre = $args['nombre'] ?? 'No Name';
-        $this->apellido = $args['apellido'] ?? 'No Last Name';
-        $this->telefono = $args['telefono'] ?? 'No Phone Number';
+        $this->id = $args['id'] ?? '';
+        $this->nombre = $args['nombre'] ?? '';
+        $this->apellido = $args['apellido'] ?? '';
+        $this->telefono = $args['telefono'] ?? '';
     }
 
     /* MÉTODO PARA GUARDAR EN LA BD */
@@ -49,7 +49,7 @@ class Vendedor
 
         $resultado = self::$db->query($query);
 
-        debuguear($resultado);
+        return $resultado;
     }
 
     /* MÉTODO PARA OBTENER LOS ATRIBUTOS */
