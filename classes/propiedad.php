@@ -136,8 +136,8 @@ class Propiedad
     // Lista todas las propiedades
     public static function all()
     {
-        $resultado = $query = "SELECT * FROM propiedades";
-        self::consultarSQL($query);
+        $query = "SELECT * FROM propiedades";
+        $resultado = self::consultarSQL($query);
 
         return $resultado;
     }

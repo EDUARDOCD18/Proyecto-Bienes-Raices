@@ -100,8 +100,8 @@ class Vendedor
     // Lista para todas las propiedades
     public static function all()
     {
-        $resultado = $query = "SELECT * FROM vendedores";
-        self::consultarSQL($query);
+        $query = "SELECT * FROM vendedores";
+        $resultado = self::consultarSQL($query);
 
         return $resultado;
     }
@@ -121,6 +121,7 @@ class Vendedor
         $resultado->free();
 
         // Retornar los resultados
+        return $arry;
     }
 
     protected static function crearObjeto($registro)

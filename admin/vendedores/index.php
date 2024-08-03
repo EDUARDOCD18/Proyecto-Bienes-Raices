@@ -62,21 +62,21 @@ incluirTemplate('header');
             </tr>
         </thead>
         <tbody>
-            <?php while ($vendedor = mysqli_fetch_assoc($resultadoConsulta)) : ?>
+            <?php foreach($vendedores as $vendedor) : ?>
                 <tr>
-                    <td><?php echo $vendedor['id']; ?></td>
-                    <td><?php echo $vendedor['nombre']; ?></td>
-                    <td><?php echo $vendedor['apellido']; ?></td>
-                    <td><?php echo $vendedor['telefono']; ?></td>
+                    <td><?php echo $vendedor->id; ?></td>
+                    <td><?php echo $vendedor->nombre; ?></td>
+                    <td><?php echo $vendedor->apellido; ?></td>
+                    <td><?php echo $vendedor->telefono; ?></td>
                     <td class="botones-accion">
                         <form method="POST" class="w-100">
-                            <input type="hidden" name="id" value="<?php echo $vendedor['id'] ?>">
+                            <input type="hidden" name="id" value="<?php echo $vendedorid ?>">
                             <input type="submit" value="Eliminar" class="boton-rojo-block">
                         </form>
-                        <a href="actualizarVendedor.php?id=<?php echo $vendedor['id']; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="actualizarVendedor.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
-            <?php endwhile; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
 </main>
