@@ -23,7 +23,7 @@ $db = conectarDB();
 $vendedor = Vendedor::find($id);
 
 /* -- Arreglo con los mensajes de errores -- */
-$errores = [];
+$errores = Vendedor::getErrores();
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,18 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $args = $_POST['vendedor'];
 
     $vendedor->sinc($args);
-    debuguear($vendedor);
-
-    /* -- Validaciones para los campos vacíos -- */
-    if (!$nombre) {
-        $errores[] = "Campo Nombre no puede ir vacío.";
-    }
-    if (!$apellido) {
-        $errores[] = "Campo Apellido no puede ir vacío.";
-    }
-    if (!$telefono) {
-        $errores[] = "Campo Teléfono no puede ir vacío.";
-    }
+    $errores = $vendedor->validar();
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {

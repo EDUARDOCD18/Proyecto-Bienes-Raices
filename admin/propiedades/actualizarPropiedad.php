@@ -27,7 +27,7 @@ $consulta = "SELECT * FROM vendedores";
 $resultado = mysqli_query($db, $consulta);
 
 // Arreglo con los mensajes de errores
-$errores = [];
+$errores = Propiedad::getErrores();
 
 /* Ejecutar el código después de que el usuario envía el formulario */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,38 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $args = $_POST['propiedad'];
 
     $propiedad->sinc($args);
-    debuguear($propiedad);
-
-    // Asignar una variable a files
-    $imagen = $_FILES['imagen'];
-
-    /* Validaciones para los campos vacíos */
-    if (!$titulo) {
-        $errores[] = "Debe agregar un título.";
-    }
-    if (!$precio) {
-        $errores[] = "Debe agregar un precio de venta.";
-    }
-    // Validar el tamaño de la imagen
-    $medida = 1000 * 1000;
-    if ($imagen['size'] > $medida) {
-        $errores[] = "La imagene es muy pesada.";
-    }
-    if (strlen($descripcion) < 50) {
-        $errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo.";
-    }
-    if (!$habitaciones) {
-        $errores[] = "Debe agregar mínimo una habitación.";
-    }
-    if (!$wc) {
-        $errores[] = "Debe agregar mínimo un baño.";
-    }
-    if (!$estacionamiento) {
-        $errores[] = "Debe agregar mínimo un puesto de estacionamiento.";
-    }
-    if (!$vendedores_id) {
-        $errores[] = "Debe elegir al vendedor o vendedora.";
-    }
+    $errores = $propiedad->validar();
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
