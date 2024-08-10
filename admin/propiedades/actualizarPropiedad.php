@@ -2,6 +2,10 @@
 
 use App\Propiedad;
 
+//Importar Intervention Image
+use Intervention\Image\ImageManager as Image;
+use Intervention\Image\Drivers\Gd\Driver;
+
 require '../../includes/app.php';
 estaAutenticado();
 
@@ -36,49 +40,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $args = $_POST['propiedad'];
 
     $propiedad->sinc($args);
+
+    // Validación
     $errores = $propiedad->validar();
+
+    // Generar un nombre único para cada imagen
+    $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
+
+    // Subida de archivos
+    if ($_FILES['propiedad']['tmp_name']['imagen']) {
+        $manager = new Image(Driver::class);
+        $imagenSubir = $manager->read($_FILES['propiedad']['tmp_name']['imagen'])->cover(800, 600);
+        $propiedad->setImage($nombreImagen);
+    }
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
 
-        /* -- Subida de archivos -- */
-
-        // Crear carpeta
-        $carpetaImagenes = '../../imagenes/';
-
-        // Comprobar si la carpeta existe o no
-        if (!is_dir($carpetaImagenes)) { // En caso de que NO exista...
-            mkdir($carpetaImagenes); // se crea la carpera
-        }
-
-        // Comprobar si una imagen ha sido reemplazada por otra en la bdd
-        if ($imagen['name']) {
-
-            // Eliminar la imagen anterior
-            unlink($carpetaImagenes . $propiedad['imagen']); // Borrar la imagen anterior
-
-            // Generar un nombre único para cada imagen
-            $nombreImagen = md5(uniqid(rand(), true)) . ".jpg";
-
-            // Subir la imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
-        } else {
-            $nombreImagen = $propiedad['imagen'];
-        }
-
+            exit;
+        
         /* Insertar en la Base de Datos */
         $query = " UPDATE propiedades SET titulo = '$titulo', precio = '$precio', imagen = '$nombreImagen', descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamiento, vendedores_id = $vendedores_id  WHERE id = $id";
 
+        $resultado = mysqli_query($db, $query);}
 
-        $resultado = mysqli_query($db, $query);
         if ($resultado) {
             // Redirecionar al usuario
             header('Location: ../propiedades?resultado=2');
-        } else {
-            echo ("Error");
         }
     }
-}
+
 
 /* Importar el header */
 incluirTemplate('header');
