@@ -1,8 +1,8 @@
 <?php
+require '../../includes/app.php';
 
 use App\Vendedor;
 
-require '../../includes/app.php';
 estaAutenticado();
 
 /* -- Validar que el id sea el correcto -- */
@@ -32,21 +32,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $args = $_POST['vendedor'];
 
     $vendedor->sinc($args);
+
+    // Validación
     $errores = $vendedor->validar();
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
-
-        /* Insertar en la Base de Datos */
-        $query = " UPDATE vendedores SET nombre = '$nombre', apellido = '$apellido', telefono = '$telefono' WHERE id = '$id' ";
-
-        $resultado = mysqli_query($db, $query);
-        if ($resultado) {
-            // Redirecionar al usuario
-            header('Location: ../vendedores?resultado=1');
-        } else {
-            echo ("Error");
-        }
+        $vendedor->guardar();
     }
 }
 

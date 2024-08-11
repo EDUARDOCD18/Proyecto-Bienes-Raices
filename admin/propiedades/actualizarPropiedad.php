@@ -1,4 +1,5 @@
 <?php
+require '../../includes/app.php';
 
 use App\Propiedad;
 
@@ -6,7 +7,6 @@ use App\Propiedad;
 use Intervention\Image\ImageManager as Image;
 use Intervention\Image\Drivers\Gd\Driver;
 
-require '../../includes/app.php';
 estaAutenticado();
 
 /* -- Validar que el id sea correcto -- */
@@ -56,20 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
-
-            exit;
-        
-        /* Insertar en la Base de Datos */
-        $query = " UPDATE propiedades SET titulo = '$titulo', precio = '$precio', imagen = '$nombreImagen', descripcion = '$descripcion', habitaciones = $habitaciones, wc = $wc, estacionamiento = $estacionamiento, vendedores_id = $vendedores_id  WHERE id = $id";
-
-        $resultado = mysqli_query($db, $query);}
-
-        if ($resultado) {
-            // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=2');
-        }
+        // Guardar la imagen
+        $imagenSubir->save(CARPETA_IMAGENES . $nombreImagen);
+        $propiedad->guardar();
     }
-
+}
 
 /* Importar el header */
 incluirTemplate('header');

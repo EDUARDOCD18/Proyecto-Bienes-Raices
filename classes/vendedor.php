@@ -37,6 +37,18 @@ class Vendedor
     /* MÉTODO PARA GUARDAR EN LA BD */
     public function guardar()
     {
+        if (isset($this->id)) {
+            // Actualizar
+            $this->actualizar();
+        } else {
+            // Creando registro
+            $this->crear();
+        }
+    }
+
+    /* MÉTODO PARA CREAR REGISTRO */
+    public function crear()
+    {
         $atributos = $this->sanitizarAtributos();
         /* debuguear($atributos); */
 
@@ -50,6 +62,30 @@ class Vendedor
         $resultado = self::$db->query($query);
 
         return $resultado;
+    }
+
+    /* MÉTODO PARA ACTUALIZAR REGISTRO */
+    public function actualizar()
+    {
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach ($atributos as $key => $value) {
+            $valores[] = "{$key}='{$value}'";
+        }
+
+        $query = " UPDATE vendedores SET ";
+        $query .=  join(', ', $valores);
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " LIMIT 1 ";
+
+        $resultado = self::$db->query($query);
+
+
+        if ($resultado) {
+            // Redirecionar al usuario
+            header('Location: ../vendedores?resultado=2');
+        }
     }
 
     /* MÉTODO PARA OBTENER LOS ATRIBUTOS */

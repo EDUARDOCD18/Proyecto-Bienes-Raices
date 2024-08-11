@@ -47,8 +47,19 @@ class Propiedad
         $this->vendedores_id = $args['vendedores_id'] ?? 5;
     }
 
-    /* -- Función para guardar en la BD-- */
     public function guardar()
+    {
+        if (isset($this->id)) {
+            // Actualizar
+            $this->actualizar();
+        } else {
+            // Creando registro
+            $this->crear();
+        }
+    }
+
+    /* -- Método para guardar en la BD-- */
+    public function crear()
     {
         $atributos = $this->sanitizarAtributos();
 
@@ -62,6 +73,29 @@ class Propiedad
         $resultado = self::$db->query($query);
 
         return $resultado;
+    }
+
+    public function actualizar()
+    {
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach ($atributos as $key => $value) {
+            $valores[] = "{$key}='{$value}'";
+        }
+
+        $query = " UPDATE propiedades SET ";
+        $query .=  join(', ', $valores);
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " LIMIT 1 ";
+
+        $resultado = self::$db->query($query);
+
+
+        if ($resultado) {
+            // Redirecionar al usuario
+            header('Location: ../propiedades?resultado=2');
+        }
     }
 
     /* -- Función para obtener los atributos -- */
@@ -92,7 +126,7 @@ class Propiedad
     public function setImage($imagen)
     {
         // Elimina la imagen anterior
-        if ($this->id) {
+        if (isset($this->id)) {
             $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
             if ($existeArchivo) {
                 unlink(CARPETA_IMAGENES . $this->imagen);
