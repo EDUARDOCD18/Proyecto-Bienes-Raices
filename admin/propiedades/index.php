@@ -17,25 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // En caso de que el id exista
     if ($id) {
-        // Eliminar el archivo
-        $query = "SELECT imagen FROM propiedades WHERE id = $id;"; // Selecciona la img según el id
-        $resultado = mysqli_query($db, $query);
-        $propiedad = mysqli_fetch_assoc($resultado);
-
-        // Borrar la imagen
-        unlink('../../imagenes/' . $propiedad['imagen']); // Borra la img del servidor
-
-        // Realizar la consulta a la bdd para eliminar
-        $query = "DELETE FROM propiedades WHERE id = $id; "; // Elimina la propiedad 
-
-        $resultado = mysqli_query($db, $query); // Manda el script a la bdd
-
-        if ($resultado) {
-            // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=3');
-        } else {
-            echo ("Error");
-        }
+        $propiedad = Propiedad::find($id);
+        $propiedad->eliminar();
     }
 }
 
@@ -70,7 +53,7 @@ incluirTemplate('header');
             </tr>
         </thead> <!-- Mostrar los resultados de la consulta -->
         <tbody>
-            <?php foreach( $propiedades as $propiedad): ?>
+            <?php foreach ($propiedades as $propiedad): ?>
                 <tr>
                     <td><?php echo $propiedad->id; ?></td>
                     <td><?php echo $propiedad->titulo; ?></td>

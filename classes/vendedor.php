@@ -159,14 +159,14 @@ class Vendedor
         // Iterar los resultados
         $array = [];
         while ($registro = $resultado->fetch_assoc()) {
-            $arry[] = static::crearObjeto($registro);
+            $array[] = static::crearObjeto($registro);
         }
 
         // Liberar memoria
         $resultado->free();
 
         // Retornar los resultados
-        return $arry;
+        return $array;
     }
 
     protected static function crearObjeto($registro)

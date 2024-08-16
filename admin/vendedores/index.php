@@ -70,7 +70,7 @@ incluirTemplate('header');
                     <td><?php echo $vendedor->telefono; ?></td>
                     <td class="botones-accion">
                         <form method="POST" class="w-100">
-                            <input type="hidden" name="id" value="<?php echo $vendedorid ?>">
+                            <input type="hidden" name="id" value="<?php echo $vendedor->id ?>">
                             <input type="submit" value="Eliminar" class="boton-rojo-block">
                         </form>
                         <a href="actualizarVendedor.php?id=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
