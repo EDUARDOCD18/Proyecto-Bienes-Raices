@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $vendedor = new Vendedor($_POST['vendedor']);
     $errores = $vendedor->validar();
 
-    $resultado = $vendedor->guardar();
+
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
-
+        $resultado = $vendedor->guardar();
         if ($resultado) {
             // Redirecionar al usuario
             header('Location: ../vendedores?resultado=1');

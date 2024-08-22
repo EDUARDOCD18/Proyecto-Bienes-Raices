@@ -28,7 +28,7 @@ class Vendedor
     /* CONSTRUCTOR */
     public function __construct($args = [])
     {
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
         $this->apellido = $args['apellido'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
@@ -59,6 +59,7 @@ class Vendedor
         $query .= join("', '", array_values($atributos));
         $query .= " ')";
 
+
         $resultado = self::$db->query($query);
 
         if ($resultado) {
@@ -83,6 +84,7 @@ class Vendedor
         $query .= " LIMIT 1 ";
 
         $resultado = self::$db->query($query);
+        
 
         if ($resultado) {
             // Redirecionar al usuario
