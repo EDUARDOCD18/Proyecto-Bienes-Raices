@@ -37,7 +37,7 @@ class Vendedor
     /* MÉTODO PARA GUARDAR EN LA BD */
     public function guardar()
     {
-        if (isset($this->id)) {
+        if (!is_null($this->id)) {
             // Actualizar
             $this->actualizar();
         } else {
@@ -61,7 +61,6 @@ class Vendedor
 
         $resultado = self::$db->query($query);
 
-        $resultado = self::$db->query($query);
         if ($resultado) {
             // Redirecionar al usuario
             header('Location: ../vendedores?resultado=1');
@@ -84,7 +83,6 @@ class Vendedor
         $query .= " LIMIT 1 ";
 
         $resultado = self::$db->query($query);
-
 
         if ($resultado) {
             // Redirecionar al usuario

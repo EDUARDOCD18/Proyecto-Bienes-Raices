@@ -35,7 +35,7 @@ class Propiedad
     public function __construct($args = [])
     {
         // Sanitizar los datos
-        $this->id = $args['id'] ?? '';
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
@@ -49,7 +49,7 @@ class Propiedad
 
     public function guardar()
     {
-        if (isset($this->id)) {
+        if (!is_null($this->id)) {
             // Actualizar
             $this->actualizar();
         } else {
@@ -71,12 +71,11 @@ class Propiedad
         $query .= " ')";
 
         $resultado = self::$db->query($query);
+        
         if ($resultado) {
             // Redirecionar al usuario
             header('Location: ../propiedades?resultado=1');
         }
-
-        return $resultado;
     }
 
     public function actualizar()
@@ -143,7 +142,7 @@ class Propiedad
     public function setImage($imagen)
     {
         // Elimina la imagen anterior
-        if (isset($this->id)) {
+        if (!is_null($this->id)) {
             $this->borrarImagenes();
         }
 
