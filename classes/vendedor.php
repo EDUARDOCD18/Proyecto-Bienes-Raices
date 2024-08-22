@@ -61,7 +61,11 @@ class Vendedor
 
         $resultado = self::$db->query($query);
 
-        return $resultado;
+        $resultado = self::$db->query($query);
+        if ($resultado) {
+            // Redirecionar al usuario
+            header('Location: ../vendedores?resultado=1');
+        }
     }
 
     /* MÉTODO PARA ACTUALIZAR REGISTRO */
