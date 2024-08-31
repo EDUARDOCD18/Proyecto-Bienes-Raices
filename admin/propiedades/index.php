@@ -3,9 +3,14 @@ require '../../includes/app.php';
 estaAutenticado();
 
 use App\Propiedad;
+use App\Vendedor;
 
-// Método para obtener las propiedades con Active Record
+// Método para obtener los registros con Active Record
 $propiedades = Propiedad::all();
+$vendedores = Vendedor::all();
+
+
+debuguear($propiedades);
 
 /* -- Muestra mensaje condiconal -- */
 $resultado = $_GET['resultado'] ?? null;
