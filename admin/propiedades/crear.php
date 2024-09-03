@@ -10,14 +10,10 @@ use Intervention\Image\Drivers\Gd\Driver;
 
 estaAutenticado();
 
-/* Base de Datos */
-$db = conectarDB();
-
 $propiedad = new Propiedad;
 
-// Consultar los vendedores en la BDD
-$consulta = "SELECT * FROM vendedores";
-$resultado = mysqli_query($db, $consulta);
+// Consuta para obtener los vendedores
+$vendedores = Vendedor::all();
 
 // Arreglo con los mensajes de errores
 $errores = Propiedad::getErrores();
