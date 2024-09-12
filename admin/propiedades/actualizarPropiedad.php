@@ -1,11 +1,12 @@
 <?php
-require '../../includes/app.php';
 
 use App\Propiedad;
-
+use App\Vendedor;
 //Importar Intervention Image
 use Intervention\Image\ImageManager as Image;
 use Intervention\Image\Drivers\Gd\Driver;
+
+require '../../includes/app.php';
 
 estaAutenticado();
 
@@ -26,9 +27,8 @@ $db = conectarDB();
 // Obtener los datos de la propiedad
 $propiedad = Propiedad::find($id);
 
-// Consultar la tabla vendedores
-$consulta = "SELECT * FROM vendedores";
-$resultado = mysqli_query($db, $consulta);
+// Arreglo para obtener todos los vendedores
+$vendedores = Vendedor::all();
 
 // Arreglo con los mensajes de errores
 $errores = Propiedad::getErrores();
@@ -56,8 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Revisar que el arrglo de errores esté vacío
     if (empty($errores)) {
-        // Guardar la imagen
-        $imagenSubir->save(CARPETA_IMAGENES . $nombreImagen);
+        if ($_FILES['propiedad']['tmp_name']['imagen']) {
+            // Guardar la imagen
+            $imagenSubir->save(CARPETA_IMAGENES . $nombreImagen);
+        }
         $propiedad->guardar();
     }
 }
