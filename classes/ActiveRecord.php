@@ -135,38 +135,14 @@ class ActiveRecord
     /* -- Validación -- */
     public static function getErrores()
     {
-        return self::$errores;
+        return static::$errores;
     }
 
     public function validar()
     {
         /* Validaciones para los campos vacíos */
-        if (!$this->titulo) {
-            self::$errores[] = "Debe agregar un título.";
-        }
-        if (!$this->precio) {
-            self::$errores[] = "Debe agregar un precio de venta.";
-        }
-        if (!$this->imagen) {
-            self::$errores[] = "La imagen es obligatoria.";
-        }
-        if (strlen($this->descripcion) < 50) {
-            self::$errores[] = "Debe agregar una descripción o esta es muy corta. 50 Caracteres mínimo.";
-        }
-        if (!$this->habitaciones) {
-            self::$errores[] = "Debe agregar mínimo una habitación.";
-        }
-        if (!$this->wc) {
-            self::$errores[] = "Debe agregar mínimo un baño.";
-        }
-        if (!$this->estacionamiento) {
-            self::$errores[] = "Debe agregar mínimo un puesto de estacionamiento.";
-        }
-        if (!$this->vendedores_id) {
-            self::$errores[] = "Debe elegir al vendedor o vendedora.";
-        }
-
-        return self::$errores;
+        static::$errores = [];
+        return static::$errores;
     }
 
     // Lista todas los registros
