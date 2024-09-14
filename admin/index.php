@@ -14,8 +14,7 @@ incluirTemplate('header');
     <h1>Panel de Admistración Principal</h1>
 
     <div class="acciones">
-        <a href="propiedades/index.php" class="boton boton-verde">Administar Propiedades →</a>
-        <a href="vendedores/index.php" class="boton boton-verde">Administar Vendedores →</a>
+        <a href="propiedades/index.php" class="boton boton-verde">Ir al Administrador →</a>
     </div>
     <picture class="imagen-admin">
         <source srcset="/bienesraices/build/img/destacada3.webp" type="image/webp" />
