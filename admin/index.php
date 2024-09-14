@@ -15,6 +15,7 @@ incluirTemplate('header');
 
     <div class="acciones">
         <a href="propiedades/index.php" class="boton boton-verde">Administar Propiedades →</a>
+        <a href="vendedores/index.php" class="boton boton-verde">Administar Vendedores →</a>
     </div>
     <picture class="imagen-admin">
         <source srcset="/bienesraices/build/img/destacada3.webp" type="image/webp" />
