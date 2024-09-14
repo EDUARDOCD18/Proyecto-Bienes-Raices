@@ -51,10 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $resultado = $propiedad->guardar(); // Llamar función para guardar en la BD
 
-        if ($resultado) {
-            // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=1');
-        }
     }
 }
 
@@ -64,7 +60,7 @@ incluirTemplate('header');
 
 <main class="contenedor seccion">
     <h1>Crear una nueva Propiedad</h1>
-    <a href="index.php" class="boton boton-amarillo">← Volver</a>
+    <a href="../index.php" class="boton boton-amarillo">← Volver</a>
 
     <?php
     foreach ($errores as $error) :
