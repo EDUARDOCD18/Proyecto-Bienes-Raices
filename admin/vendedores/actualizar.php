@@ -29,7 +29,7 @@ incluirTemplate('header');
         </div>
     <?php endforeach; ?>
 
-    <form action="" class="formulario" method="POST" action="/admin/vendedores/crear.php">
+    <form action="" class="formulario" method="POST" action="/admin/vendedores/actaulizar.php">
         <?php include '../../includes/templates/formulario_vendedores.php'; ?>
 
         <input type="submit" value="Actualizar" class="boton boton-verde">

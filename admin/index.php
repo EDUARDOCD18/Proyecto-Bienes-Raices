@@ -78,7 +78,7 @@ incluirTemplate('header');
                             <input type="hidden" name="tipo" value="propiedad">
                             <input type="submit" value="Eliminar" class="boton-rojo-block">
                         </form>
-                        <a href="../admin/propiedades/actualizarPropiedad.php?=<?php echo $vendedor->id; ?>" class="boton-amarillo-block">Actualizar</a>
+                        <a href="../admin/propiedades/actualizarPropiedad.php?=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">Actualizar</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

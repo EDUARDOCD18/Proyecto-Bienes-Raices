@@ -23,6 +23,25 @@ class Vendedor extends ActiveRecord
         $this->apellido = $args['apellido'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
     }
+
+    public function validar()
+    {
+        /* Validaciones para los campos vacíos */
+        if (!$this->nombre) {
+            self::$errores[] = "Debe agregar el nombre.";
+        }
+        if (!$this->apellido) {
+            self::$errores[] = "Debe agregar el apellido.";
+        }
+        if (!$this->telefono) {
+            self::$errores[] = "Debe agregar el número.";
+        }
+
+        if (!preg_match('/[0-9]{10}/', $this->telefono)){
+            self::$errores[] = "Formato no válido.";
+        }
+            return self::$errores;
+    }
 }
 
 // class Vendedor

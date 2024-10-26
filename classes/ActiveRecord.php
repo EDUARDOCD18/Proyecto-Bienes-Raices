@@ -46,7 +46,7 @@ class ActiveRecord
 
         if ($resultado) {
             // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=1');
+            header('Location: ../../admin?resultado=1');
         }
     }
 
@@ -69,7 +69,7 @@ class ActiveRecord
 
         if ($resultado) {
             // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=2');
+            header('Location: ../../admin?resultado=2');
         }
     }
 
@@ -82,7 +82,7 @@ class ActiveRecord
         if ($resultado) {
             $this->borrarImagenes();
             // Redirecionar al usuario
-            header('Location: ../propiedades?resultado=3');
+            header('Location: ../admin?resultado=3');
         }
     }
 
