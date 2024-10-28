@@ -37,10 +37,10 @@ class Vendedor extends ActiveRecord
             self::$errores[] = "Debe agregar el número.";
         }
 
-        if (!preg_match('/[0-9]{10}/', $this->telefono)){
+        if (!preg_match('/[0-9]{10}/', $this->telefono)) {
             self::$errores[] = "Formato no válido.";
         }
-            return self::$errores;
+        return self::$errores;
     }
 }
 
