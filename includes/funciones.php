@@ -36,8 +36,31 @@ function s($html): String
 }
 
 // Validar tipo de contenido
-function validarTipoContenido($tipo){
-    $tipos = ['vendedor','propiedad'];
+function validarTipoContenido($tipo)
+{
+    $tipos = ['vendedor', 'propiedad'];
 
     return in_array($tipo, $tipos);
+}
+
+// Muestra los mensajes
+function mostrarNotificaciones($codigo)
+{
+    $mensaje = '';
+
+    switch ($codigo) {
+        case 1:
+            $mensaje = '¡Registro exitoso!';
+            break;
+        case 2:
+            $mensaje = '¡Actualización exitosa!';
+            break;
+        case 3:
+            $mensaje = '¡Eliminación exitosa!';
+            break;
+        default:
+            $mensaje = false;
+            break;
+    }
+    return $mensaje;
 }

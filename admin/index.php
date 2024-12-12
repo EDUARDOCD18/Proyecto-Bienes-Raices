@@ -2,6 +2,8 @@
 require '../includes/app.php';
 estaAutenticado();
 
+
+// Importar clases
 use App\Propiedad;
 use App\Vendedor;
 
@@ -14,6 +16,8 @@ $resultado = $_GET['resultado'] ?? null;
 
 /* -- Revisar el request method -- */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Validar ID
     $id = $_POST['id']; // Obtener el id y guardarlo
     $id = filter_var($id, FILTER_VALIDATE_INT); // Validar que el id es entero
 
@@ -40,13 +44,11 @@ incluirTemplate('header');
 <main class="contenedor seccion">
     <h1>Administrador</h1>
 
-    <?php if (intval($resultado) === 1) : ?>
-        <p class="alerta exito">Regristro creado</p>
-    <?php elseif (intval($resultado) === 2) : ?>
-        <p class="alerta exito">Registro actualizado</p>
-    <?php elseif (intval($resultado) === 3) : ?>
-        <p class="alerta eliminado">Regisrto eliminado</p>
-    <?php endif ?>
+    <?php $mensaje = mostrarNotificaciones(intval($resultado));
+
+    if ($mensaje) { ?>
+        <p class="alerta exito"><?php echo s($mensaje); ?></p>
+    <?php } ?>
 
     <div class="acciones">
         <a href="../admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad →</a>
