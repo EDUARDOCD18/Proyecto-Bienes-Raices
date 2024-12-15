@@ -1,0 +1,19 @@
+{
+  "name": "javier/bienesraices",
+  "description": "Proyecto de bienes raices con POO",
+  "type": "project",
+  "authors": [
+    {
+      "name": "eduardocd18",
+      "email": "javierecd@gmail.com"
+    }
+  ],
+  "require": {
+    "intervention/image": "^3.7"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "./classes"
+    }
+  }
+}

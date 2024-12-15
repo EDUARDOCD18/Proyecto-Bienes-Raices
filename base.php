@@ -1,7 +1,7 @@
 <?php
 
 /* -- Importar el header -- */
-require 'includes/funciones.php';
+require 'includes/app.php';
 incluirTemplate('header');
 ?>
 

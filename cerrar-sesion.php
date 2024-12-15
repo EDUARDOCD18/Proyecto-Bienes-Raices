@@ -4,4 +4,4 @@ session_start();
 
 $_SESSION = [];
 
-header('Location: /bienesraices');
+header('Location: ../bienesraices');

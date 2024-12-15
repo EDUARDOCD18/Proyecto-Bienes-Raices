@@ -1,6 +1,5 @@
 <?php
 /* -- Importar la Base de Datos -- */
-require 'includes/config/database.php';
 $db = conectarDB();
 
 /* -- Crear email y password-- */
